@@ -4,12 +4,10 @@ import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-villa.jpg";
 import elementsResidence from "@/assets/elements-residence.jpg";
 import sabawa from "@/assets/sabawa.jpg";
 import omaSora from "@/assets/oma-sora.jpg";
 import bocoaJimbaran from "@/assets/bocoa-jimbaran.png";
-import saltStone from "@/assets/salt-stone.png";
 
 const pillars = [
   {
@@ -38,8 +36,8 @@ export default function Index() {
       <section className="relative min-h-screen flex items-center">
         <div className="absolute inset-0">
           <img
-            src={heroImage}
-            alt="Luxury villa in Bali"
+            src={sabawa}
+            alt="Sabawa - Bamboo residences in Nusa Penida"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-transparent" />
@@ -180,10 +178,8 @@ export default function Index() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             { image: elementsResidence, title: "Elements Residence", location: "Canggu, Bali", type: "Modern Apartments" },
-            { image: sabawa, title: "Sabawa", location: "Nusa Penida", type: "Bamboo Residences" },
-            { image: omaSora, title: "Oma Sora", location: "Umalas, Bali", type: "Earth-formed Architecture" },
             { image: bocoaJimbaran, title: "Bocoa Jimbaran", location: "Jimbaran, Bali", type: "Adobe-style Villas" },
-            { image: saltStone, title: "Salt & Stone", location: "Balangan, Bali", type: "Mediterranean Villas" },
+            { image: omaSora, title: "Oma Sora", location: "Umalas, Bali", type: "Earth-formed Architecture" },
           ].map((project, index) => (
             <motion.div
               key={project.title}
