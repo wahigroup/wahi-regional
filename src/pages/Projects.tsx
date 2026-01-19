@@ -53,11 +53,12 @@ export default function Projects() {
           className="max-w-3xl"
         >
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-light leading-tight">
-            Our Projects
+            Real Projects. Real Demand. Real Returns.
           </h1>
           <p className="mt-8 font-sans text-lg text-muted-foreground leading-relaxed">
-            Wahi projects are located in carefully selected destinations with 
-            strong tourism demand, limited high-quality supply, and long-term appeal.
+            Wahi develops high-quality properties in locations with strong tourism 
+            fundamentals and year-round occupancy potential. Each project is designed, 
+            built, and structured to perform as a long-term investment.
           </p>
         </motion.div>
       </Section>
@@ -121,7 +122,7 @@ export default function Projects() {
                   className="mt-8 font-sans text-sm tracking-wide uppercase"
                 >
                   <Link to="/contact">
-                    Enquire <ArrowRight className="ml-2 h-4 w-4" />
+                    View Project <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               </div>
@@ -140,14 +141,13 @@ export default function Projects() {
           className="text-center max-w-2xl mx-auto"
         >
           <h2 className="font-serif text-3xl lg:text-4xl font-light">
-            Interested in Our Projects?
+            Not Sure Which Project Fits You Best?
           </h2>
           <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            Book a consultation to receive detailed project specifications, 
-            pricing, and investment structuring options.
+            Speak with a Wahi advisor to compare options and opportunities.
           </p>
           <Button asChild size="lg" className="mt-8 font-sans text-sm tracking-wide uppercase">
-            <Link to="/contact">Book a Consultation</Link>
+            <Link to="/contact">Schedule a Consultation</Link>
           </Button>
         </motion.div>
       </Section>

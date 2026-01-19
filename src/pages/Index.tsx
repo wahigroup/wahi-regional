@@ -9,10 +9,19 @@ import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
 
-const stats = [
-  { value: "12–18%", label: "Gross Yield Range" },
-  { value: "70–85%", label: "Occupancy Potential" },
-  { value: "5–7 Years", label: "Investment Horizon" },
+const pillars = [
+  {
+    title: "High-Demand Destination",
+    description: "Bali is one of the world's most visited lifestyle destinations, generating consistent year-round occupancy and resilient rental performance.",
+  },
+  {
+    title: "Professionally Structured",
+    description: "Clear ownership structures, transparent processes, and full lifecycle support—from purchase to operation.",
+  },
+  {
+    title: "Designed for Performance",
+    description: "Thoughtfully designed properties optimized for guest experience, strong reviews, and sustainable income.",
+  },
 ];
 
 const fadeUp = {
@@ -48,9 +57,7 @@ export default function Index() {
               transition={{ duration: 0.6 }}
               className="font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light leading-tight tracking-tight"
             >
-              Security Through Demand.
-              <br />
-              Returns Through Structure.
+              Wahi – Your Gateway to Bali's Property Market
             </motion.h1>
 
             <motion.p
@@ -58,8 +65,8 @@ export default function Index() {
               transition={{ duration: 0.6 }}
               className="mt-6 lg:mt-8 font-sans text-base lg:text-lg text-muted-foreground leading-relaxed max-w-xl"
             >
-              A calm, transparent approach for investors seeking stable demand 
-              and materially higher rental income than in mature home markets.
+              Design-driven developments in a globally attractive destination 
+              where strong demand supports attractive long-term returns.
             </motion.p>
 
             <motion.div
@@ -80,7 +87,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Introduction */}
+      {/* Invest Beyond Low-Yield Markets */}
       <Section>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <motion.div
@@ -90,12 +97,14 @@ export default function Index() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl xl:text-5xl font-light tracking-tight">
-              Where Structural Yield Meets Long-Term Security
+              Invest Beyond Low-Yield Markets
             </h2>
             <div className="mt-6 space-y-4 font-sans text-base text-muted-foreground leading-relaxed">
               <p>
-                Wahi is a real estate developer focused on high-quality residential 
-                and hospitality projects in Indonesia's most resilient lifestyle destinations.
+                Wahi is a design-driven real estate developer creating high-quality 
+                property investments in Bali. We focus on markets where global tourism 
+                demand, limited supply, and professional management combine to support 
+                stable, long-term returns for international investors.
               </p>
               <p>
                 Indonesia's tourism economy provides structurally stable, year-round demand, 
@@ -126,49 +135,44 @@ export default function Index() {
         </div>
       </Section>
 
-      {/* Stats Section */}
+      {/* Three Pillars */}
       <Section variant="accent">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="font-serif text-3xl lg:text-4xl font-light">
-            Investment Context
-          </h2>
-          <p className="mt-4 font-sans text-sm text-muted-foreground">
-            Illustrative figures based on market fundamentals — not forecasts or guarantees
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {stats.map((stat, index) => (
+        <div className="grid md:grid-cols-3 gap-6">
+          {pillars.map((pillar, index) => (
             <motion.div
-              key={stat.label}
+              key={pillar.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="stat-box bg-background"
+              className="border border-foreground p-8 bg-background"
             >
-              <div className="font-serif text-3xl lg:text-4xl font-light">
-                {stat.value}
-              </div>
-              <div className="mt-2 font-sans text-xs tracking-widest uppercase text-muted-foreground">
-                {stat.label}
-              </div>
+              <h3 className="font-sans text-xs tracking-widest uppercase text-muted-foreground mb-4">
+                {pillar.title}
+              </h3>
+              <p className="font-sans text-sm text-muted-foreground leading-relaxed">
+                {pillar.description}
+              </p>
             </motion.div>
           ))}
         </div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-12 text-center font-serif text-xl lg:text-2xl font-light max-w-3xl mx-auto"
+        >
+          "A straightforward way to access Bali property through an experienced, hands-on developer."
+        </motion.p>
       </Section>
 
       {/* Featured Projects */}
       <Section>
         <SectionHeader
-          title="Featured Projects"
-          subtitle="Carefully selected destinations with strong tourism demand, limited high-quality supply, and long-term appeal."
+          title="Our Projects"
+          subtitle="Each Wahi project is developed with the same principles: strong locations, thoughtful design, and practical layouts optimized for guest experience and long-term performance. Explore our current developments below."
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -207,7 +211,7 @@ export default function Index() {
         </div>
       </Section>
 
-      {/* Why Invest */}
+      {/* Why Bali */}
       <Section variant="dark">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
           <motion.div
@@ -217,7 +221,7 @@ export default function Index() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl xl:text-5xl font-light">
-              A Yield Environment Shaped by Real Demand
+              Why Bali? Strong Demand, Higher Returns
             </h2>
           </motion.div>
 
@@ -229,17 +233,25 @@ export default function Index() {
             className="space-y-6 font-sans text-base text-primary-foreground/80 leading-relaxed"
           >
             <p>
-              Indonesia combines several fundamentals rarely found together in mature 
-              property markets: one of the world's strongest tourism economies, 
-              year-round demand, limited high-quality supply, and entry pricing 
-              materially below Western markets.
+              Bali is one of the world's most established and resilient tourism 
+              destinations. With consistent international arrivals, limited high-quality 
+              supply, and year-round occupancy, the island supports rental yields that 
+              are significantly higher than those typically available in mature markets.
             </p>
-            <p>
-              This results in a clear structural yield differential. Where residential 
-              property elsewhere often delivers 3–5% gross yields, Indonesia — and 
-              Bali in particular — operates in a market where double-digit rental 
-              yields are achievable under conservative assumptions.
-            </p>
+            <div className="space-y-4 pt-4">
+              <div className="border-l-2 border-primary-foreground/30 pl-4">
+                <p className="font-medium text-primary-foreground">Year-Round Global Demand</p>
+                <p className="text-sm text-primary-foreground/70">Bali welcomes visitors from around the world throughout the year, creating stable occupancy across seasons and market cycles.</p>
+              </div>
+              <div className="border-l-2 border-primary-foreground/30 pl-4">
+                <p className="font-medium text-primary-foreground">Limited Quality Supply</p>
+                <p className="text-sm text-primary-foreground/70">Well-designed, professionally managed accommodation remains limited, allowing premium properties to perform strongly.</p>
+              </div>
+              <div className="border-l-2 border-primary-foreground/30 pl-4">
+                <p className="font-medium text-primary-foreground">Structurally Higher Yields</p>
+                <p className="text-sm text-primary-foreground/70">These fundamentals enable income potential that is rarely achievable in markets where residential yields are often only 3–5%.</p>
+              </div>
+            </div>
             <Link
               to="/why-invest"
               className="inline-flex items-center text-primary-foreground hover:opacity-70 transition-opacity"
