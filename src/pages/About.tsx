@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
+import inspection1 from "@/assets/inspection-1.jpg";
+import inspection2 from "@/assets/inspection-2.jpg";
 
 const whyReliable = [
   "Developer-level expertise rather than third-party brokerage",
@@ -91,8 +91,8 @@ export default function About() {
             className="aspect-[4/3] overflow-hidden"
           >
             <img
-              src={project3}
-              alt="Wahi project"
+              src={inspection1}
+              alt="Wahi team on site inspection"
               className="w-full h-full object-cover grayscale"
             />
           </motion.div>
@@ -146,8 +146,8 @@ export default function About() {
             className="aspect-[4/3] overflow-hidden"
           >
             <img
-              src={project2}
-              alt="Wahi interior"
+              src={inspection2}
+              alt="Wahi project development oversight"
               className="w-full h-full object-cover grayscale"
             />
           </motion.div>
