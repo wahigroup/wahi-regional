@@ -8,7 +8,7 @@ const navigation = [
   { name: "About", href: "/about" },
   { name: "Projects", href: "/projects" },
   { name: "Why Indonesia", href: "/why-invest" },
-  { name: "Legal", href: "/legal" },
+  { name: "How It Works", href: "/how-it-works" },
   { name: "Contact", href: "/contact" },
 ];
 

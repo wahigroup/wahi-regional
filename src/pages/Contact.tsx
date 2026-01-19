@@ -209,13 +209,23 @@ export default function Contact() {
               </div>
             </div>
 
+            {/* Regional Representative Placeholder */}
             <div className="mt-12 p-8 bg-accent">
-              <h3 className="font-sans text-xs tracking-widest uppercase text-muted-foreground mb-4">
-                Contact Details
+              <h3 className="font-sans text-xs tracking-widest uppercase text-muted-foreground mb-6">
+                Your Local Representative
               </h3>
-              <div className="space-y-3 font-sans text-sm">
-                <p>info@wahigroup.id</p>
-                <p>Bali, Indonesia</p>
+              <div className="flex items-start gap-6">
+                <div className="w-24 h-24 bg-muted flex items-center justify-center flex-shrink-0">
+                  <span className="font-sans text-xs text-muted-foreground">Photo</span>
+                </div>
+                <div className="space-y-2">
+                  <p className="font-serif text-lg">[Representative Name]</p>
+                  <p className="font-sans text-sm text-muted-foreground">Wahi Regional Representative</p>
+                  <div className="pt-2 space-y-1 font-sans text-sm text-muted-foreground">
+                    <p>info@wahigroup.id</p>
+                    <p>Bali, Indonesia</p>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
