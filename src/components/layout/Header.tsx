@@ -22,7 +22,7 @@ export function Header() {
       <nav className="section-container flex items-center justify-between py-4 lg:py-6">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src={wahiLogo} alt="Wahi" className="h-8 lg:h-10" />
+          <img src={wahiLogo} alt="Wahi" className="h-8 lg:h-10 invert brightness-0 invert" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -63,7 +63,7 @@ export function Header() {
           >
             <div className="section-container flex items-center justify-between py-4">
               <Link to="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
-                <img src={wahiLogo} alt="Wahi" className="h-8" />
+                <img src={wahiLogo} alt="Wahi" className="h-8 invert brightness-0 invert" />
               </Link>
               <button
                 type="button"
