@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import wahiLogo from "@/assets/wahi-logo.png";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -21,9 +22,7 @@ export function Header() {
       <nav className="section-container flex items-center justify-between py-4 lg:py-6">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <span className="font-serif text-2xl lg:text-3xl font-light tracking-wider text-primary-foreground">
-            Wahi
-          </span>
+          <img src={wahiLogo} alt="Wahi" className="h-8 lg:h-10" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -64,9 +63,7 @@ export function Header() {
           >
             <div className="section-container flex items-center justify-between py-4">
               <Link to="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
-                <span className="font-serif text-2xl font-light tracking-wider text-primary-foreground">
-                  Wahi
-                </span>
+                <img src={wahiLogo} alt="Wahi" className="h-8" />
               </Link>
               <button
                 type="button"
