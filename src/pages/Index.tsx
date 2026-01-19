@@ -5,9 +5,11 @@ import { Layout } from "@/components/layout/Layout";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-villa.jpg";
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
+import elementsResidence from "@/assets/elements-residence.jpg";
+import sabawa from "@/assets/sabawa.jpg";
+import omaSora from "@/assets/oma-sora.jpg";
+import bocoaJimbaran from "@/assets/bocoa-jimbaran.png";
+import saltStone from "@/assets/salt-stone.png";
 
 const pillars = [
   {
@@ -127,8 +129,8 @@ export default function Index() {
             className="relative aspect-[4/3] lg:aspect-square"
           >
             <img
-              src={project2}
-              alt="Modern villa interior"
+              src={elementsResidence}
+              alt="Elements Residence - Modern apartments in Canggu"
               className="w-full h-full object-cover grayscale"
             />
           </motion.div>
@@ -177,9 +179,11 @@ export default function Index() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
-            { image: project1, title: "Ubud Terraces", location: "Ubud, Bali" },
-            { image: project2, title: "Canggu Villas", location: "Canggu, Bali" },
-            { image: project3, title: "Seminyak Residences", location: "Seminyak, Bali" },
+            { image: elementsResidence, title: "Elements Residence", location: "Canggu, Bali", type: "Modern Apartments" },
+            { image: sabawa, title: "Sabawa", location: "Nusa Penida", type: "Bamboo Residences" },
+            { image: omaSora, title: "Oma Sora", location: "Umalas, Bali", type: "Earth-formed Architecture" },
+            { image: bocoaJimbaran, title: "Bocoa Jimbaran", location: "Jimbaran, Bali", type: "Adobe-style Villas" },
+            { image: saltStone, title: "Salt & Stone", location: "Balangan, Bali", type: "Mediterranean Villas" },
           ].map((project, index) => (
             <motion.div
               key={project.title}
@@ -197,7 +201,8 @@ export default function Index() {
                 />
               </div>
               <div className="mt-4">
-                <h3 className="font-serif text-xl">{project.title}</h3>
+                <p className="font-sans text-xs tracking-widest uppercase text-muted-foreground">{project.type}</p>
+                <h3 className="font-serif text-xl mt-1">{project.title}</h3>
                 <p className="font-sans text-sm text-muted-foreground">{project.location}</p>
               </div>
             </motion.div>

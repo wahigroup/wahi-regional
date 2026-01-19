@@ -4,40 +4,57 @@ import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
+import elementsResidence from "@/assets/elements-residence.jpg";
+import sabawa from "@/assets/sabawa.jpg";
+import omaSora from "@/assets/oma-sora.jpg";
+import bocoaJimbaran from "@/assets/bocoa-jimbaran.png";
+import saltStone from "@/assets/salt-stone.png";
 
 const projects = [
   {
     id: 1,
-    title: "Ubud Terraces",
-    location: "Ubud, Bali",
-    description: "A collection of contemporary villas nestled among rice terraces, offering privacy and connection to Bali's cultural heart.",
-    image: project1,
-    units: "12 Villas",
-    size: "180–320 m²",
-    status: "Under Construction",
+    title: "Elements Residence",
+    location: "Canggu, Bali",
+    type: "Modern Apartments",
+    description: "Ocean-view modern apartments inspired by the four natural elements of Bali. A harmonious blend of contemporary design and natural beauty.",
+    image: elementsResidence,
+    status: "Available",
   },
   {
     id: 2,
-    title: "Canggu Villas",
-    location: "Canggu, Bali",
-    description: "Modern tropical residences designed for the discerning investor, with seamless indoor-outdoor living and premium finishes.",
-    image: project2,
-    units: "8 Villas",
-    size: "220–400 m²",
+    title: "Sabawa",
+    location: "Nusa Penida",
+    type: "Bamboo Residences",
+    description: "Nature-carved bamboo residences offering serene jungle and ocean vistas in Nusa Penida. Sustainable luxury in an untouched paradise.",
+    image: sabawa,
     status: "Available",
   },
   {
     id: 3,
-    title: "Seminyak Residences",
-    location: "Seminyak, Bali",
-    description: "Boutique apartments in Bali's most established lifestyle destination, combining location with architectural excellence.",
-    image: project3,
-    units: "24 Units",
-    size: "85–180 m²",
-    status: "Coming Soon",
+    title: "Oma Sora",
+    location: "Umalas, Bali",
+    type: "Earth-formed Architecture",
+    description: "Earth-formed architecture with flowing curves inspired by Wabi-Sabi serenity. A unique expression of organic living.",
+    image: omaSora,
+    status: "Available",
+  },
+  {
+    id: 4,
+    title: "Bocoa Jimbaran",
+    location: "Jimbaran, Bali",
+    type: "Adobe-style Villas",
+    description: "Adobe-style villa retreat where rustic elegance meets tropical serenity with private pool sanctuary. Mediterranean warmth in Bali.",
+    image: bocoaJimbaran,
+    status: "Available",
+  },
+  {
+    id: 5,
+    title: "Salt & Stone",
+    location: "Balangan, Bali",
+    type: "Mediterranean Villas",
+    description: "Mediterranean serenity meets Balinese warmth with refined craftsmanship and coastal views. Timeless elegance by the sea.",
+    image: saltStone,
+    status: "Available",
   },
 ];
 
@@ -88,8 +105,8 @@ export default function Projects() {
               </div>
 
               <div className={index % 2 === 1 ? "lg:col-start-1" : ""}>
-                <span className="inline-block font-sans text-xs tracking-widest uppercase text-muted-foreground mb-4">
-                  {project.status}
+                <span className="inline-block font-sans text-xs tracking-widest uppercase text-muted-foreground mb-2">
+                  {project.type}
                 </span>
                 <h2 className="font-serif text-3xl lg:text-4xl font-light">
                   {project.title}
@@ -101,19 +118,10 @@ export default function Projects() {
                   {project.description}
                 </p>
 
-                <div className="mt-8 flex gap-8">
-                  <div>
-                    <div className="font-sans text-xs tracking-widest uppercase text-muted-foreground">
-                      Units
-                    </div>
-                    <div className="mt-1 font-serif text-lg">{project.units}</div>
-                  </div>
-                  <div>
-                    <div className="font-sans text-xs tracking-widest uppercase text-muted-foreground">
-                      Size Range
-                    </div>
-                    <div className="mt-1 font-serif text-lg">{project.size}</div>
-                  </div>
+                <div className="mt-6">
+                  <span className="inline-block font-sans text-xs tracking-widest uppercase px-3 py-1 border border-foreground/20">
+                    {project.status}
+                  </span>
                 </div>
 
                 <Button
@@ -122,7 +130,7 @@ export default function Projects() {
                   className="mt-8 font-sans text-sm tracking-wide uppercase"
                 >
                   <Link to="/contact">
-                    View Project <ArrowRight className="ml-2 h-4 w-4" />
+                    Enquire Now <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               </div>
