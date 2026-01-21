@@ -253,6 +253,9 @@ export default function Index() {
                 <p className="text-sm text-primary-foreground/70">These fundamentals enable income potential that is rarely achievable in markets where residential yields are often only 3–5%.</p>
               </div>
             </div>
+            <p className="italic text-primary-foreground/90">
+              For investors from [COUNTRY], Bali represents a practical way to diversify internationally while accessing stronger, demand-driven returns.
+            </p>
             <Link
               to="/why-invest"
               className="inline-flex items-center text-primary-foreground hover:opacity-70 transition-opacity"
