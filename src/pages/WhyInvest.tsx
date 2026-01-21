@@ -380,16 +380,16 @@ export default function WhyInvest() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-3xl mx-auto text-center"
+          className="max-w-3xl mx-auto"
         >
           <h2 className="font-serif text-3xl lg:text-4xl font-light">
             A Compelling Alternative to Low-Yield Markets
           </h2>
           <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            For investors facing high prices and low returns at home, Indonesia offers 
+            For investors in [COUNTRY] facing high prices and low returns at home, Indonesia offers 
             a rare combination of:
           </p>
-          <ul className="mt-6 space-y-2 text-left max-w-md mx-auto">
+          <ul className="mt-6 space-y-2">
             {finalBenefits.map((item) => (
               <li key={item} className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
@@ -401,11 +401,15 @@ export default function WhyInvest() {
             With the right project and the right partner, Indonesian property can become 
             a powerful addition to a diversified investment portfolio.
           </p>
+          <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
+            With the right project and the right partner, Indonesian property can become 
+            a powerful addition to a diversified investment portfolio.
+          </p>
         </motion.div>
       </Section>
 
       {/* CTA */}
-      <Section variant="dark">
+      <Section variant="dark" className="border-b border-white/10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -419,8 +423,7 @@ export default function WhyInvest() {
           <Button
             asChild
             size="lg"
-            variant="outline"
-            className="mt-8 font-sans text-sm tracking-wide uppercase border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+            className="mt-8 font-sans text-sm tracking-wide uppercase bg-white text-black hover:bg-white/90"
           >
             <Link to="/projects">View Current Developments</Link>
           </Button>
