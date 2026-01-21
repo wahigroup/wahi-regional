@@ -43,7 +43,7 @@ const economicFactors = [
 const diversificationBenefits = [
   "Exposure to a different economic cycle",
   "Income generated in a global tourism currency environment",
-  "Assets outside of domestic property trends",
+  "Assets outside of [COUNTRY] property trends",
   "Potential hedge against domestic market stagnation",
 ];
 
@@ -105,9 +105,11 @@ export default function WhyInvest() {
           className="max-w-3xl"
         >
           <p className="font-sans text-lg text-muted-foreground leading-relaxed">
-            For investors, property markets at home often deliver modest returns. Indonesia 
+            For investors from [COUNTRY], property markets at home often deliver modest returns. Indonesia 
             offers a different profile: a fast-growing economy, globally recognized destinations, 
-            and year-round tourism demand that supports significantly higher rental yields. 
+            and year-round tourism demand that supports significantly higher rental yields.
+          </p>
+          <p className="mt-4 font-sans text-lg text-muted-foreground leading-relaxed">
             This page explains, in practical terms, why Indonesia — and Bali in particular — 
             has become one of the most attractive property investment markets in Asia.
           </p>
@@ -179,6 +181,17 @@ export default function WhyInvest() {
                 </motion.li>
               ))}
             </ul>
+            <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
+              For investors, this imbalance between demand and supply supports:
+            </p>
+            <ul className="mt-4 space-y-2">
+              {["Strong occupancy", "Competitive nightly rates", "Long-term value appreciation"].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                  <span className="font-sans text-sm text-muted-foreground">{item}</span>
+                </li>
+              ))}
+            </ul>
           </motion.div>
         </div>
       </Section>
@@ -225,7 +238,7 @@ export default function WhyInvest() {
               Lower Prices, Higher Income Potential
             </h2>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Compared to major cities in developed markets, property prices in Bali and 
+              Compared to major cities in [COUNTRY], property prices in Bali and
               Indonesia remain accessible. This allows investors to:
             </p>
             <ul className="mt-6 space-y-3">
@@ -267,6 +280,9 @@ export default function WhyInvest() {
                 </li>
               ))}
             </ul>
+            <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
+              Tourism remains a strategic national industry, with ongoing investment into airports, roads, and services—strengthening the long-term outlook for property owners.
+            </p>
           </motion.div>
 
           <motion.div
