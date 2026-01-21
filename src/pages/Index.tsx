@@ -4,25 +4,11 @@ import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import elementsResidence from "@/assets/elements-residence.jpg";
 import sabawa from "@/assets/sabawa.jpg";
 import omaSora from "@/assets/oma-sora.jpg";
 import bocoaJimbaran from "@/assets/bocoa-jimbaran.png";
-
-const pillars = [
-  {
-    title: "High-Demand Destination",
-    description: "Bali is one of the world's most visited lifestyle destinations, generating consistent year-round occupancy and resilient rental performance.",
-  },
-  {
-    title: "Professionally Structured",
-    description: "Clear ownership structures, transparent processes, and full lifecycle support—from purchase to operation.",
-  },
-  {
-    title: "Designed for Performance",
-    description: "Thoughtfully designed properties optimized for guest experience, strong reviews, and sustainable income.",
-  },
-];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -30,6 +16,23 @@ const fadeUp = {
 };
 
 export default function Index() {
+  const { t } = useLanguage();
+
+  const pillars = [
+    {
+      title: t('index.pillars.location'),
+      description: t('index.pillars.locationDesc'),
+    },
+    {
+      title: t('index.pillars.design'),
+      description: t('index.pillars.designDesc'),
+    },
+    {
+      title: t('index.pillars.structure'),
+      description: t('index.pillars.structureDesc'),
+    },
+  ];
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -57,7 +60,7 @@ export default function Index() {
               transition={{ duration: 0.6 }}
               className="font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light leading-tight tracking-tight"
             >
-              Wahi – Your Gateway to Bali's Property Market
+              {t('index.hero.title')}
             </motion.h1>
 
             <motion.p
@@ -65,8 +68,7 @@ export default function Index() {
               transition={{ duration: 0.6 }}
               className="mt-6 lg:mt-8 font-sans text-base lg:text-lg text-muted-foreground leading-relaxed max-w-xl"
             >
-              Design-driven developments in a globally attractive destination 
-              where strong demand supports attractive long-term returns.
+              {t('index.hero.subtitle')}
             </motion.p>
 
             <motion.div
@@ -75,11 +77,11 @@ export default function Index() {
               className="mt-8 lg:mt-10 flex flex-col sm:flex-row gap-4"
             >
               <Button asChild size="lg" className="font-sans text-sm tracking-wide uppercase">
-                <Link to="/contact">Book a Consultation</Link>
+                <Link to="/contact">{t('index.hero.bookConsultation')}</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="font-sans text-sm tracking-wide uppercase">
                 <Link to="/projects">
-                  Explore Projects <ArrowRight className="ml-2 h-4 w-4" />
+                  {t('index.hero.exploreProjects')} <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </motion.div>
@@ -97,25 +99,12 @@ export default function Index() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl xl:text-5xl font-light tracking-tight">
-              Invest Beyond Low-Yield Markets
+              {t('index.invest.title')}
             </h2>
             <div className="mt-6 space-y-4 font-sans text-base text-muted-foreground leading-relaxed">
-              <p>
-                Wahi is a design-driven real estate developer creating high-quality 
-                property investments in Bali. We focus on markets where global tourism 
-                demand, limited supply, and professional management combine to support 
-                stable, long-term returns for international investors.
-              </p>
-              <p>
-                Indonesia's tourism economy provides structurally stable, year-round demand, 
-                supporting rental performance that differs fundamentally from residential 
-                markets in Europe, the US, and Australia.
-              </p>
-              <p>
-                While residential rental yields in developed markets often sit around 3–5%, 
-                professionally designed and managed Bali assets can operate in a significantly 
-                higher yield environment when built and run correctly.
-              </p>
+              <p>{t('index.invest.description1')}</p>
+              <p>{t('index.invest.description2')}</p>
+              <p>{t('index.invest.description3')}</p>
             </div>
           </motion.div>
 
@@ -164,15 +153,15 @@ export default function Index() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-12 text-center font-serif text-xl lg:text-2xl font-light max-w-3xl mx-auto"
         >
-          "A straightforward way to access Bali property through an experienced, hands-on developer."
+          {t('index.pillars.quote')}
         </motion.p>
       </Section>
 
       {/* Featured Projects */}
       <Section>
         <SectionHeader
-          title="Our Projects"
-          subtitle="Each Wahi project is developed with the same principles: strong locations, thoughtful design, and practical layouts optimized for guest experience and long-term performance. Explore our current developments below."
+          title={t('index.featured.title')}
+          subtitle=""
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -207,7 +196,7 @@ export default function Index() {
 
         <div className="mt-12 text-center">
           <Button asChild variant="outline" size="lg" className="font-sans text-sm tracking-wide uppercase">
-            <Link to="/projects">View All Projects</Link>
+            <Link to="/projects">{t('index.featured.viewAll')}</Link>
           </Button>
         </div>
       </Section>
@@ -222,7 +211,7 @@ export default function Index() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl xl:text-5xl font-light">
-              Why Bali? Strong Demand, Higher Returns
+              {t('index.whyBali.title')}
             </h2>
           </motion.div>
 
@@ -233,34 +222,25 @@ export default function Index() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="space-y-6 font-sans text-base text-primary-foreground/80 leading-relaxed"
           >
-            <p>
-              Bali is one of the world's most established and resilient tourism 
-              destinations. With consistent international arrivals, limited high-quality 
-              supply, and year-round occupancy, the island supports rental yields that 
-              are significantly higher than those typically available in mature markets.
-            </p>
             <div className="space-y-4 pt-4">
               <div className="border-l-2 border-primary-foreground/30 pl-4">
-                <p className="font-medium text-primary-foreground">Year-Round Global Demand</p>
-                <p className="text-sm text-primary-foreground/70">Bali welcomes visitors from around the world throughout the year, creating stable occupancy across seasons and market cycles.</p>
+                <p className="font-medium text-primary-foreground">{t('index.whyBali.demand')}</p>
+                <p className="text-sm text-primary-foreground/70">{t('index.whyBali.demandDesc')}</p>
               </div>
               <div className="border-l-2 border-primary-foreground/30 pl-4">
-                <p className="font-medium text-primary-foreground">Limited Quality Supply</p>
-                <p className="text-sm text-primary-foreground/70">Well-designed, professionally managed accommodation remains limited, allowing premium properties to perform strongly.</p>
+                <p className="font-medium text-primary-foreground">{t('index.whyBali.supply')}</p>
+                <p className="text-sm text-primary-foreground/70">{t('index.whyBali.supplyDesc')}</p>
               </div>
               <div className="border-l-2 border-primary-foreground/30 pl-4">
-                <p className="font-medium text-primary-foreground">Structurally Higher Yields</p>
-                <p className="text-sm text-primary-foreground/70">These fundamentals enable income potential that is rarely achievable in markets where residential yields are often only 3–5%.</p>
+                <p className="font-medium text-primary-foreground">{t('index.whyBali.returns')}</p>
+                <p className="text-sm text-primary-foreground/70">{t('index.whyBali.returnsDesc')}</p>
               </div>
             </div>
-            <p className="italic text-primary-foreground/90">
-              For investors from [COUNTRY], Bali represents a practical way to diversify internationally while accessing stronger, demand-driven returns.
-            </p>
             <Link
               to="/why-invest"
               className="inline-flex items-center text-primary-foreground hover:opacity-70 transition-opacity"
             >
-              Learn more <ArrowRight className="ml-2 h-4 w-4" />
+              {t('index.whyBali.learnMore')} <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </motion.div>
         </div>
@@ -276,15 +256,13 @@ export default function Index() {
           className="text-center max-w-2xl mx-auto"
         >
           <h2 className="font-serif text-3xl lg:text-4xl xl:text-5xl font-light">
-            Speak With a Wahi Representative
+            {t('index.cta.title')}
           </h2>
           <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            If you are considering an investment in Indonesia and would like a 
-            structured, transparent discussion, book a consultation with the 
-            local Wahi representative.
+            {t('index.cta.description')}
           </p>
           <Button asChild size="lg" className="mt-8 font-sans text-sm tracking-wide uppercase">
-            <Link to="/contact">Book a Consultation</Link>
+            <Link to="/contact">{t('index.cta.button')}</Link>
           </Button>
         </motion.div>
       </Section>

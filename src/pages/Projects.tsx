@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import elementsResidence from "@/assets/elements-residence.jpg";
 import sabawa from "@/assets/sabawa.jpg";
 import omaSora from "@/assets/oma-sora.jpg";
@@ -18,7 +19,6 @@ const projects = [
     type: "Modern Apartments",
     description: "Ocean-view modern apartments inspired by the four natural elements of Bali. A harmonious blend of contemporary design and natural beauty.",
     image: elementsResidence,
-    status: "Available",
   },
   {
     id: 2,
@@ -27,7 +27,6 @@ const projects = [
     type: "Bamboo Residences",
     description: "Nature-carved bamboo residences offering serene jungle and ocean vistas in Nusa Penida. Sustainable luxury in an untouched paradise.",
     image: sabawa,
-    status: "Available",
   },
   {
     id: 3,
@@ -36,7 +35,6 @@ const projects = [
     type: "Earth-formed Architecture",
     description: "Earth-formed architecture with flowing curves inspired by Wabi-Sabi serenity. A unique expression of organic living.",
     image: omaSora,
-    status: "Available",
   },
   {
     id: 4,
@@ -45,7 +43,6 @@ const projects = [
     type: "Adobe-style Villas",
     description: "Adobe-style villa retreat where rustic elegance meets tropical serenity with private pool sanctuary. Mediterranean warmth in Bali.",
     image: bocoaJimbaran,
-    status: "Available",
   },
   {
     id: 5,
@@ -54,11 +51,12 @@ const projects = [
     type: "Mediterranean Villas",
     description: "Mediterranean serenity meets Balinese warmth with refined craftsmanship and coastal views. Timeless elegance by the sea.",
     image: saltStone,
-    status: "Available",
   },
 ];
 
 export default function Projects() {
+  const { t } = useLanguage();
+
   return (
     <Layout>
       {/* Hero */}
@@ -70,12 +68,10 @@ export default function Projects() {
           className="max-w-3xl"
         >
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-light leading-tight">
-            Real Projects. Real Demand. Real Returns.
+            {t('projects.hero.title')}
           </h1>
           <p className="mt-8 font-sans text-lg text-muted-foreground leading-relaxed">
-            Wahi develops high-quality properties in locations with strong tourism 
-            fundamentals and year-round occupancy potential. Each project is designed, 
-            built, and structured to perform as a long-term investment.
+            {t('projects.hero.description')}
           </p>
         </motion.div>
       </Section>
@@ -120,7 +116,7 @@ export default function Projects() {
 
                 <div className="mt-6">
                   <span className="inline-block font-sans text-xs tracking-widest uppercase px-3 py-1 border border-foreground/20">
-                    {project.status}
+                    {t('projects.available')}
                   </span>
                 </div>
 
@@ -130,7 +126,7 @@ export default function Projects() {
                   className="mt-8 font-sans text-sm tracking-wide uppercase"
                 >
                   <Link to="/contact">
-                    Enquire Now <ArrowRight className="ml-2 h-4 w-4" />
+                    {t('projects.enquireNow')} <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               </div>
@@ -149,13 +145,13 @@ export default function Projects() {
           className="text-center max-w-2xl mx-auto"
         >
           <h2 className="font-serif text-3xl lg:text-4xl font-light">
-            Not Sure Which Project Fits You Best?
+            {t('projects.cta.title')}
           </h2>
           <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            Speak with a Wahi advisor to compare options and opportunities.
+            {t('projects.cta.description')}
           </p>
           <Button asChild size="lg" className="mt-8 font-sans text-sm tracking-wide uppercase">
-            <Link to="/contact">Schedule a Consultation</Link>
+            <Link to="/contact">{t('projects.cta.button')}</Link>
           </Button>
         </motion.div>
       </Section>

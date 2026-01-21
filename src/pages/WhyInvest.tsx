@@ -3,74 +3,82 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import heroImage from "@/assets/hero-villa.jpg";
 
-const tourismFeatures = [
-  "Year-round warm climate",
-  "Multiple overlapping travel seasons",
-  "Diverse visitor demographics",
-  "Established global reputation",
-  "Constantly improving infrastructure",
-];
-
-const supplyCharacteristics = [
-  "Limited land in prime areas",
-  "Slow and complex development processes",
-  "Shortage of high-quality, professionally operated properties",
-];
-
-const yieldReasons = [
-  "Short-term rental model",
-  "Strong nightly rates",
-  "High occupancy",
-  "Lower entry prices relative to Western markets",
-];
-
-const investorBenefits = [
-  "Enter the market with lower capital",
-  "Diversify across multiple units",
-  "Achieve stronger cash-on-cash returns",
-  "Participate in a growing region without large leverage",
-];
-
-const economicFactors = [
-  "A young and expanding population",
-  "Rising middle class",
-  "Improving infrastructure",
-  "Government focus on tourism development",
-];
-
-const diversificationBenefits = [
-  "Exposure to a different economic cycle",
-  "Income generated in a global tourism currency environment",
-  "Assets outside of [COUNTRY] property trends",
-  "Potential hedge against domestic market stagnation",
-];
-
-const hakSewaFeatures = [
-  "Long-term security",
-  "Contractual extension options",
-  "Straightforward transferability",
-  "Predictable operating models",
-];
-
-const baliAdvantages = [
-  "Unmatched international brand recognition",
-  "Repeat-visitor culture",
-  "Mature hospitality ecosystem",
-  "Global flight connections",
-  "Proven resilience through multiple market cycles",
-];
-
-const finalBenefits = [
-  "Stable, year-round demand",
-  "Attractive income potential",
-  "Affordable entry prices",
-  "Long-term growth prospects",
-  "Global lifestyle appeal",
-];
-
 export default function WhyInvest() {
+  const { t } = useLanguage();
+
+  const tourismFeatures = [
+    "Year-round warm climate",
+    "Multiple overlapping travel seasons",
+    "Diverse visitor demographics",
+    "Established global reputation",
+    "Constantly improving infrastructure",
+  ];
+
+  const supplyCharacteristics = [
+    "Limited land in prime areas",
+    "Slow and complex development processes",
+    "Shortage of high-quality, professionally operated properties",
+  ];
+
+  const demandBenefits = [
+    t('whyInvest.demand.benefit1'),
+    t('whyInvest.demand.benefit2'),
+    t('whyInvest.demand.benefit3'),
+  ];
+
+  const yieldReasons = [
+    "Short-term rental model",
+    "Strong nightly rates",
+    "High occupancy",
+    "Lower entry prices relative to Western markets",
+  ];
+
+  const investorBenefits = [
+    "Enter the market with lower capital",
+    "Diversify across multiple units",
+    "Achieve stronger cash-on-cash returns",
+    "Participate in a growing region without large leverage",
+  ];
+
+  const economicFactors = [
+    t('whyInvest.growth.item1'),
+    t('whyInvest.growth.item2'),
+    t('whyInvest.growth.item3'),
+    t('whyInvest.growth.item4'),
+  ];
+
+  const diversificationBenefits = [
+    t('whyInvest.diversification.item1'),
+    t('whyInvest.diversification.item2'),
+    t('whyInvest.diversification.item3'),
+    t('whyInvest.diversification.item4'),
+  ];
+
+  const hakSewaFeatures = [
+    "Long-term security",
+    "Contractual extension options",
+    "Straightforward transferability",
+    "Predictable operating models",
+  ];
+
+  const baliAdvantages = [
+    "Unmatched international brand recognition",
+    "Repeat-visitor culture",
+    "Mature hospitality ecosystem",
+    "Global flight connections",
+    "Proven resilience through multiple market cycles",
+  ];
+
+  const finalBenefits = [
+    t('whyInvest.alternative.item1'),
+    t('whyInvest.alternative.item2'),
+    t('whyInvest.alternative.item3'),
+    t('whyInvest.alternative.item4'),
+  ];
+
   return (
     <Layout>
       {/* Hero */}
@@ -90,7 +98,7 @@ export default function WhyInvest() {
             transition={{ duration: 0.6 }}
             className="font-serif text-4xl md:text-5xl lg:text-6xl font-light leading-tight max-w-3xl"
           >
-            A Market Built on Real Demand
+            {t('whyInvest.hero.title')}
           </motion.h1>
         </div>
       </section>
@@ -104,14 +112,8 @@ export default function WhyInvest() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <p className="font-sans text-lg text-muted-foreground leading-relaxed">
-            For investors from [COUNTRY], property markets at home often deliver modest returns. Indonesia 
-            offers a different profile: a fast-growing economy, globally recognized destinations, 
-            and year-round tourism demand that supports significantly higher rental yields.
-          </p>
-          <p className="mt-4 font-sans text-lg text-muted-foreground leading-relaxed">
-            This page explains, in practical terms, why Indonesia — and Bali in particular — 
-            has become one of the most attractive property investment markets in Asia.
+          <p className="font-sans text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
+            {t('whyInvest.hero.description')}
           </p>
         </motion.div>
       </Section>
@@ -160,11 +162,10 @@ export default function WhyInvest() {
             transition={{ duration: 0.6, delay: 0.15 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl font-light">
-              More Demand Than Quality Supply
+              {t('whyInvest.demand.title')}
             </h2>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              While visitor numbers have grown steadily for years, the supply of professionally 
-              designed, well-managed accommodation has not kept pace. Key characteristics of the market:
+              {t('whyInvest.demand.description')}
             </p>
             <ul className="mt-6 space-y-3">
               {supplyCharacteristics.map((item, index) => (
@@ -182,10 +183,10 @@ export default function WhyInvest() {
               ))}
             </ul>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              For investors, this imbalance between demand and supply supports:
+              {t('whyInvest.demand.closing')}
             </p>
             <ul className="mt-4 space-y-2">
-              {["Strong occupancy", "Competitive nightly rates", "Long-term value appreciation"].map((item) => (
+              {demandBenefits.map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
                   <span className="font-sans text-sm text-muted-foreground">{item}</span>
@@ -235,11 +236,10 @@ export default function WhyInvest() {
             transition={{ duration: 0.6, delay: 0.15 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl font-light">
-              Lower Prices, Higher Income Potential
+              {t('whyInvest.prices.title')}
             </h2>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Compared to major cities in [COUNTRY], property prices in Bali and
-              Indonesia remain accessible. This allows investors to:
+              {t('whyInvest.prices.description')}
             </p>
             <ul className="mt-6 space-y-3">
               {investorBenefits.map((item) => (
@@ -250,8 +250,7 @@ export default function WhyInvest() {
               ))}
             </ul>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Indonesia offers a rare combination of lower acquisition costs and higher 
-              rental performance.
+              {t('whyInvest.prices.closing')}
             </p>
           </motion.div>
         </div>
@@ -267,10 +266,10 @@ export default function WhyInvest() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl font-light">
-              Backed by Long-Term Economic Growth
+              {t('whyInvest.growth.title')}
             </h2>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Indonesia is Southeast Asia's largest economy, supported by:
+              {t('whyInvest.growth.description')}
             </p>
             <ul className="mt-6 space-y-3">
               {economicFactors.map((item) => (
@@ -281,7 +280,7 @@ export default function WhyInvest() {
               ))}
             </ul>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Tourism remains a strategic national industry, with ongoing investment into airports, roads, and services—strengthening the long-term outlook for property owners.
+              {t('whyInvest.growth.closing')}
             </p>
           </motion.div>
 
@@ -292,11 +291,10 @@ export default function WhyInvest() {
             transition={{ duration: 0.6, delay: 0.15 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl font-light">
-              Geographic and Currency Diversification
+              {t('whyInvest.diversification.title')}
             </h2>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Owning property in Indonesia allows investors to diversify beyond their 
-              domestic market. Benefits include:
+              {t('whyInvest.diversification.description')}
             </p>
             <ul className="mt-6 space-y-3">
               {diversificationBenefits.map((item) => (
@@ -383,11 +381,10 @@ export default function WhyInvest() {
           className="max-w-3xl mx-auto"
         >
           <h2 className="font-serif text-3xl lg:text-4xl font-light">
-            A Compelling Alternative to Low-Yield Markets
+            {t('whyInvest.alternative.title')}
           </h2>
           <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            For investors in [COUNTRY] facing high prices and low returns at home, Indonesia offers 
-            a rare combination of:
+            {t('whyInvest.alternative.description')}
           </p>
           <ul className="mt-6 space-y-2">
             {finalBenefits.map((item) => (
@@ -398,12 +395,7 @@ export default function WhyInvest() {
             ))}
           </ul>
           <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            With the right project and the right partner, Indonesian property can become 
-            a powerful addition to a diversified investment portfolio.
-          </p>
-          <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            With the right project and the right partner, Indonesian property can become 
-            a powerful addition to a diversified investment portfolio.
+            {t('whyInvest.alternative.closing')}
           </p>
         </motion.div>
       </Section>
@@ -418,14 +410,17 @@ export default function WhyInvest() {
           className="text-center max-w-2xl mx-auto"
         >
           <h2 className="font-serif text-3xl lg:text-4xl font-light">
-            Explore Wahi Projects in Indonesia
+            {t('whyInvest.cta.title')}
           </h2>
+          <p className="mt-6 font-sans text-base text-primary-foreground/80 leading-relaxed">
+            {t('whyInvest.cta.description')}
+          </p>
           <Button
             asChild
             size="lg"
             className="mt-8 font-sans text-sm tracking-wide uppercase bg-white text-black hover:bg-white/90"
           >
-            <Link to="/projects">View Current Developments</Link>
+            <Link to="/projects">{t('whyInvest.cta.button')}</Link>
           </Button>
         </motion.div>
       </Section>
