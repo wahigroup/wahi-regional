@@ -154,12 +154,12 @@ export default function HowItWorks() {
                   <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
                   <span className="font-sans text-sm text-muted-foreground">Right to rent, resell, or transfer the property</span>
                 </li>
+                <li className="flex items-start gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                  <span className="font-sans text-sm text-muted-foreground">Leasehold is widely used across Bali and Indonesia for villas, apartments, and resort residences and is recognized as a secure and bankable structure</span>
+                </li>
               </ul>
             </div>
-            <p className="mt-6 font-sans text-sm text-muted-foreground leading-relaxed">
-              Leasehold is widely used across Bali and Indonesia for villas, apartments, 
-              and resort residences and is recognized as a secure and bankable structure.
-            </p>
           </motion.div>
 
           <motion.div
