@@ -263,7 +263,7 @@ export default function About() {
         </div>
       </Section>
 
-      {/* Design Excellence */}
+      {/* The Role of the Local Office in [COUNTRY] */}
       <Section variant="accent">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -272,106 +272,75 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <p className="font-sans text-base text-muted-foreground leading-relaxed">
-            Every Wahi project is created around the belief that better-designed 
-            properties generate better experiences—and better experiences create 
-            stronger demand. We emphasize:
+          <h2 className="font-serif text-3xl lg:text-4xl font-light">
+            The Role of the Local Office in [COUNTRY]
+          </h2>
+          <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
+            Wahi [COUNTRY] is your local point of contact for Indonesian property investment.
           </p>
-          <ul className="mt-6 space-y-3">
-            <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-              <span className="font-sans text-sm text-muted-foreground">Timeless, context-sensitive architecture</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-              <span className="font-sans text-sm text-muted-foreground">Materials and concepts suited to Bali's environment</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-              <span className="font-sans text-sm text-muted-foreground">Layouts designed for guest comfort</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-              <span className="font-sans text-sm text-muted-foreground">Operational practicality for owners and managers</span>
-            </li>
+          <p className="mt-4 font-sans text-base text-muted-foreground leading-relaxed">
+            The purpose of the regional office is to make cross-border investing simple, clear, and comfortable for investors based in [COUNTRY].
+          </p>
+          <p className="mt-4 font-sans text-base text-muted-foreground leading-relaxed">
+            The local representative provides:
+          </p>
+          <ul className="mt-4 space-y-3">
+            {localOfficeServices.map((item, index) => (
+              <motion.li
+                key={item}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
+                className="flex items-start gap-3"
+              >
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">{item}</span>
+              </motion.li>
+            ))}
           </ul>
           <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            This design-driven approach is a key reason our properties remain 
-            competitive in the rental market over time.
+            Rather than dealing with an overseas developer directly, you have a knowledgeable local advisor who understands both the Indonesian market and the expectations of investors from [COUNTRY].
           </p>
         </motion.div>
       </Section>
 
-      {/* Local Office */}
+      {/* How We Work with Investors */}
       <Section>
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="font-serif text-3xl lg:text-4xl font-light">
-              The Role of the Local Office
-            </h2>
-            <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Wahi's local office is your point of contact for Indonesian property investment. 
-              The purpose of the regional office is to make cross-border investing simple, 
-              clear, and comfortable for investors. The local representative provides:
-            </p>
-            <ul className="mt-6 space-y-3">
-              {localOfficeServices.map((item, index) => (
-                <motion.li
-                  key={item}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
-                  className="flex items-start gap-3"
-                >
-                  <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                  <span className="font-sans text-sm text-muted-foreground">{item}</span>
-                </motion.li>
-              ))}
-            </ul>
-            <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Rather than dealing with an overseas developer directly, you have a 
-              knowledgeable local advisor who understands both the Indonesian market 
-              and your expectations as an investor.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-          >
-            <h2 className="font-serif text-3xl lg:text-4xl font-light">
-              How We Work with Investors
-            </h2>
-            <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Our process is intentionally structured and transparent:
-            </p>
-            <ol className="mt-6 space-y-4">
-              {investorProcess.map((step, index) => (
-                <motion.li
-                  key={step}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
-                  className="flex items-start gap-4"
-                >
-                  <span className="flex-shrink-0 w-6 h-6 border border-foreground flex items-center justify-center font-sans text-xs">
-                    {index + 1}
-                  </span>
-                  <span className="font-sans text-sm text-muted-foreground pt-0.5">{step}</span>
-                </motion.li>
-              ))}
-            </ol>
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl"
+        >
+          <h2 className="font-serif text-3xl lg:text-4xl font-light">
+            How We Work with Investors
+          </h2>
+          <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
+            Our process is intentionally structured and transparent:
+          </p>
+          <ol className="mt-6 space-y-4">
+            {investorProcess.map((step, index) => (
+              <motion.li
+                key={step}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
+                className="flex items-start gap-4"
+              >
+                <span className="flex-shrink-0 w-6 h-6 border border-foreground flex items-center justify-center font-sans text-xs">
+                  {index + 1}
+                </span>
+                <span className="font-sans text-sm text-muted-foreground pt-0.5">{step}</span>
+              </motion.li>
+            ))}
+          </ol>
+          <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
+            At every stage, the local Wahi representative remains your primary contact, while the Indonesian team handles project delivery and operations.
+          </p>
+        </motion.div>
       </Section>
 
       {/* Long-Term Approach */}
