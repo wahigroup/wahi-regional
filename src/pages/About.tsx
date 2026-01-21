@@ -3,52 +3,47 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import inspection1 from "@/assets/inspection-1.jpg";
 import inspection2 from "@/assets/inspection-2.jpg";
 
-const whyReliable = [
-  "Developer-level expertise rather than third-party brokerage",
-  "Clear and legal ownership structures tailored for foreign buyers",
-  "Transparent documentation and processes",
-  "Real projects with real track records",
-  "Hands-on involvement from concept to operations",
-];
-
-const designPrinciples = [
-  "Strong architectural identity",
-  "Careful location selection",
-  "Practical layouts",
-  "Professional management",
-  "Transparent ownership structures",
-];
-
-const localOfficeServices = [
-  "Personal consultations in your language and time zone",
-  "Clear explanations of Indonesian property structures",
-  "Guidance on legal and financial considerations",
-  "Coordination with local real estate agents",
-  "Assistance throughout the buying process",
-  "Ongoing support after purchase",
-];
-
-const investorProcess = [
-  "Understand your objectives",
-  "Present suitable projects",
-  "Explain ownership and legal frameworks",
-  "Register and secure the unit",
-  "Guide you through contracts and payments",
-  "Provide construction updates",
-  "Assist with handover and rental onboarding",
-];
-
-const longTermSuccess = [
-  "Satisfied owners",
-  "Well-performing properties",
-  "Repeat investors",
-  "A strong, reputable brand in Indonesia",
-];
-
 export default function About() {
+  const { t } = useLanguage();
+
+  const whyReliable = [
+    t('about.whyReliable.item1'),
+    t('about.whyReliable.item2'),
+    t('about.whyReliable.item3'),
+    t('about.whyReliable.item4'),
+    t('about.whyReliable.item5'),
+  ];
+
+  const localOfficeServices = [
+    t('about.localOffice.item1'),
+    t('about.localOffice.item2'),
+    t('about.localOffice.item3'),
+    t('about.localOffice.item4'),
+    t('about.localOffice.item5'),
+    t('about.localOffice.item6'),
+  ];
+
+  const investorProcess = [
+    t('about.investorProcess.item1'),
+    t('about.investorProcess.item2'),
+    t('about.investorProcess.item3'),
+    t('about.investorProcess.item4'),
+    t('about.investorProcess.item5'),
+    t('about.investorProcess.item6'),
+    t('about.investorProcess.item7'),
+  ];
+
+  const longTermSuccess = [
+    t('about.longTerm.item1'),
+    t('about.longTerm.item2'),
+    t('about.longTerm.item3'),
+    t('about.longTerm.item4'),
+  ];
+
   return (
     <Layout>
       {/* Hero */}
@@ -60,8 +55,11 @@ export default function About() {
           className="max-w-3xl"
         >
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-light leading-tight">
-            About Wahi
+            {t('about.hero.title')}
           </h1>
+          <p className="mt-8 font-sans text-lg text-muted-foreground leading-relaxed">
+            {t('about.hero.description')}
+          </p>
         </motion.div>
       </Section>
 
@@ -74,41 +72,12 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="font-serif text-3xl lg:text-4xl font-light">Who We Are</h2>
+            <h2 className="font-serif text-3xl lg:text-4xl font-light">{t('about.whoWeAre.title')}</h2>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Wahi is a design-driven real estate developer operating in Indonesia. 
-              We create thoughtfully planned residential and hospitality projects in 
-              high-demand locations, focused on long-term performance rather than 
-              short-term trends.
+              {t('about.whoWeAre.description1')}
             </p>
             <p className="mt-4 font-sans text-base text-muted-foreground leading-relaxed">
-              Our approach combines:
-            </p>
-            <ul className="mt-4 space-y-2">
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">Strong architectural identity</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">Careful location selection</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">Practical layouts</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">Professional management</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">Transparent ownership structures</span>
-              </li>
-            </ul>
-            <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Wahi develops properties that are enjoyable to own, attractive to guests, 
-              and structured to deliver sustainable results for international investors.
+              {t('about.whoWeAre.description2')}
             </p>
           </motion.div>
 
@@ -137,33 +106,30 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="font-serif text-3xl lg:text-4xl font-light">What We Do</h2>
+            <h2 className="font-serif text-3xl lg:text-4xl font-light">{t('about.whatWeDo.title')}</h2>
             <div className="mt-6 space-y-4 font-sans text-base text-muted-foreground leading-relaxed">
-              <p>
-                We build investment-grade property in Indonesia for global buyers. 
-                Unlike agencies or listing platforms, Wahi is the developer. We originate 
-                projects, manage design and construction, structure the legal framework, 
-                and remain involved through completion and operations.
-              </p>
-              <p>Our projects are created with three clear objectives:</p>
+              <p>{t('about.whatWeDo.description')}</p>
             </div>
-            <div className="mt-6 space-y-3">
-              <div className="border-l border-foreground pl-4">
-                <span className="font-sans text-sm font-medium">1. Real Demand</span>
-                <p className="font-sans text-sm text-muted-foreground">Locations with proven tourism appeal</p>
-              </div>
-              <div className="border-l border-foreground pl-4">
-                <span className="font-sans text-sm font-medium">2. Strong Product</span>
-                <p className="font-sans text-sm text-muted-foreground">Distinctive design and high-quality execution</p>
-              </div>
-              <div className="border-l border-foreground pl-4">
-                <span className="font-sans text-sm font-medium">3. Practical Performance</span>
-                <p className="font-sans text-sm text-muted-foreground">Layouts and concepts optimized for rental success</p>
-              </div>
-            </div>
+            <ul className="mt-6 space-y-2">
+              <li className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">{t('about.whatWeDo.item1')}</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">{t('about.whatWeDo.item2')}</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">{t('about.whatWeDo.item3')}</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">{t('about.whatWeDo.item4')}</span>
+              </li>
+            </ul>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              This end-to-end involvement allows us to maintain quality, consistency, 
-              and accountability throughout the entire life cycle of each development.
+              {t('about.whatWeDo.closing')}
             </p>
           </motion.div>
 
@@ -193,16 +159,12 @@ export default function About() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl font-light">
-              Why Wahi is a Reliable Partner
+              {t('about.whyReliable.title')}
             </h2>
-            <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Investing internationally requires more than attractive photos. It requires 
-              structure, clarity, and trust. Wahi offers:
-            </p>
             <ul className="mt-6 space-y-3">
               {whyReliable.map((item, index) => (
                 <motion.li
-                  key={item}
+                  key={index}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -214,10 +176,6 @@ export default function About() {
                 </motion.li>
               ))}
             </ul>
-            <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Our focus is on building long-term relationships with a limited number 
-              of informed investors, not on mass-market sales.
-            </p>
           </motion.div>
 
           <motion.div
@@ -235,30 +193,6 @@ export default function About() {
             <p className="mt-4 font-sans text-base text-muted-foreground leading-relaxed">
               Every Wahi project is created around the belief that better-designed properties generate better experiences—and better experiences create stronger demand.
             </p>
-            <p className="mt-4 font-sans text-base text-muted-foreground leading-relaxed">
-              We emphasize:
-            </p>
-            <ul className="mt-4 space-y-2">
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">Timeless, context-sensitive architecture</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">Materials and concepts suited to Bali's environment</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">Layouts designed for guest comfort</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">Operational practicality for owners and managers</span>
-              </li>
-            </ul>
-            <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              This design-driven approach is a key reason our properties remain competitive in the rental market over time.
-            </p>
           </motion.div>
         </div>
       </Section>
@@ -273,21 +207,21 @@ export default function About() {
           className="max-w-3xl"
         >
           <h2 className="font-serif text-3xl lg:text-4xl font-light">
-            The Role of the Local Office in [COUNTRY]
+            {t('about.localOffice.title')}
           </h2>
           <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            Wahi [COUNTRY] is your local point of contact for Indonesian property investment.
+            {t('about.localOffice.intro')}
           </p>
           <p className="mt-4 font-sans text-base text-muted-foreground leading-relaxed">
-            The purpose of the regional office is to make cross-border investing simple, clear, and comfortable for investors based in [COUNTRY].
+            {t('about.localOffice.purpose')}
           </p>
           <p className="mt-4 font-sans text-base text-muted-foreground leading-relaxed">
-            The local representative provides:
+            {t('about.localOffice.provides')}
           </p>
           <ul className="mt-4 space-y-3">
             {localOfficeServices.map((item, index) => (
               <motion.li
-                key={item}
+                key={index}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -300,7 +234,7 @@ export default function About() {
             ))}
           </ul>
           <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            Rather than dealing with an overseas developer directly, you have a knowledgeable local advisor who understands both the Indonesian market and the expectations of investors from [COUNTRY].
+            {t('about.localOffice.closing')}
           </p>
         </motion.div>
       </Section>
@@ -315,15 +249,12 @@ export default function About() {
           className="max-w-3xl"
         >
           <h2 className="font-serif text-3xl lg:text-4xl font-light">
-            How We Work with Investors
+            {t('about.investorProcess.title')}
           </h2>
-          <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            Our process is intentionally structured and transparent:
-          </p>
           <ol className="mt-6 space-y-4">
             {investorProcess.map((step, index) => (
               <motion.li
-                key={step}
+                key={index}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -338,7 +269,7 @@ export default function About() {
             ))}
           </ol>
           <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            At every stage, the local Wahi representative remains your primary contact, while the Indonesian team handles project delivery and operations.
+            {t('about.investorProcess.closing')}
           </p>
         </motion.div>
       </Section>
@@ -353,21 +284,19 @@ export default function About() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl font-light">
-              A Long-Term Approach
+              {t('about.longTerm.title')}
             </h2>
-            <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Wahi is not focused on quick transactions. We are focused on building assets, 
-              communities, and lasting investor relationships. Our success is measured not 
-              only by completed projects, but by:
-            </p>
             <ul className="mt-6 space-y-3">
-              {longTermSuccess.map((item) => (
-                <li key={item} className="flex items-start gap-3">
+              {longTermSuccess.map((item, index) => (
+                <li key={index} className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
                   <span className="font-sans text-sm text-muted-foreground">{item}</span>
                 </li>
               ))}
             </ul>
+            <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
+              {t('about.longTerm.closing')}
+            </p>
           </motion.div>
 
           <motion.div
@@ -397,10 +326,13 @@ export default function About() {
           className="text-center max-w-2xl mx-auto"
         >
           <h2 className="font-serif text-3xl lg:text-4xl font-light">
-            Speak with Wahi
+            {t('about.cta.title')}
           </h2>
+          <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
+            {t('about.cta.description')}
+          </p>
           <Button asChild size="lg" className="mt-8 font-sans text-sm tracking-wide uppercase">
-            <Link to="/contact">Book a Consultation</Link>
+            <Link to="/contact">{t('about.cta.button')}</Link>
           </Button>
         </motion.div>
       </Section>

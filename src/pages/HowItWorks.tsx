@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Accordion,
   AccordionContent,
@@ -10,91 +11,69 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const processSteps = [
-  {
-    title: "Initial Consultation",
-    description: "Discussion of your objectives, budget, and preferred project.",
-  },
-  {
-    title: "Project Selection",
-    description: "Review available units, pricing, and expected timelines.",
-  },
-  {
-    title: "Reservation",
-    description: "A small booking deposit secures the chosen unit.",
-  },
-  {
-    title: "Legal Documentation",
-    description: "Formal sales agreement and leasehold contract prepared by notaries and legal professionals.",
-  },
-  {
-    title: "Payment Milestones",
-    description: "Payments are linked to construction stages or agreed schedules.",
-  },
-  {
-    title: "Construction & Updates",
-    description: "Regular progress reports and site updates.",
-  },
-  {
-    title: "Handover",
-    description: "Unit completion, furnishing (if applicable), and final documentation.",
-  },
-  {
-    title: "Rental Onboarding",
-    description: "Property management setup and income generation begin.",
-  },
-];
-
-const ownerOptions = [
-  "Pure investment use",
-  "Partial personal use with rental income",
-  "Long-term leasing strategies",
-];
-
-const legalPartners = [
-  "Licensed Indonesian notaries",
-  "Reputable legal advisors",
-  "Established property management partners",
-];
-
-const documentationItems = [
-  "Ownership rights",
-  "Lease terms",
-  "Payment schedules",
-  "Ongoing obligations",
-];
-
-const faqs = [
-  {
-    question: "Can foreigners legally own property in Indonesia?",
-    answer: "Yes. While foreigners cannot hold freehold land, leasehold (Hak Sewa) and other legal structures allow safe, long-term ownership and control of property.",
-  },
-  {
-    question: "Can I resell my property?",
-    answer: "Yes. Leasehold properties can be sold to another buyer, transferred, or assigned according to Indonesian law and project terms.",
-  },
-  {
-    question: "Can I use the unit myself?",
-    answer: "Yes. Owners may stay in their property subject to project rules and any agreed rental calendar.",
-  },
-  {
-    question: "How is rental income paid?",
-    answer: "Income is typically distributed monthly or quarterly with transparent operational reports provided by the management company.",
-  },
-  {
-    question: "What happens if regulations change?",
-    answer: "Indonesia has a long and stable history of supporting foreign investment in tourism property. Wahi structures all projects conservatively to minimize regulatory risk.",
-  },
-];
-
-const risks = [
-  "Currency fluctuations",
-  "Tourism market cycles",
-  "Operational performance",
-  "Changes in local regulations",
-];
-
 export default function HowItWorks() {
+  const { t } = useLanguage();
+
+  const processSteps = [
+    { title: t('howItWorks.process.step1.title'), description: t('howItWorks.process.step1.description') },
+    { title: t('howItWorks.process.step2.title'), description: t('howItWorks.process.step2.description') },
+    { title: t('howItWorks.process.step3.title'), description: t('howItWorks.process.step3.description') },
+    { title: t('howItWorks.process.step4.title'), description: t('howItWorks.process.step4.description') },
+    { title: t('howItWorks.process.step5.title'), description: t('howItWorks.process.step5.description') },
+    { title: t('howItWorks.process.step6.title'), description: t('howItWorks.process.step6.description') },
+    { title: t('howItWorks.process.step7.title'), description: t('howItWorks.process.step7.description') },
+    { title: t('howItWorks.process.step8.title'), description: t('howItWorks.process.step8.description') },
+  ];
+
+  const ownerOptions = [
+    t('howItWorks.rental.option1'),
+    t('howItWorks.rental.option2'),
+    t('howItWorks.rental.option3'),
+  ];
+
+  const legalPartners = [
+    t('howItWorks.legal.item1'),
+    t('howItWorks.legal.item2'),
+    t('howItWorks.legal.item3'),
+  ];
+
+  const documentationItems = [
+    t('howItWorks.legal.doc1'),
+    t('howItWorks.legal.doc2'),
+    t('howItWorks.legal.doc3'),
+    t('howItWorks.legal.doc4'),
+  ];
+
+  const faqs = [
+    { question: t('howItWorks.faq.q1'), answer: t('howItWorks.faq.a1') },
+    { question: t('howItWorks.faq.q2'), answer: t('howItWorks.faq.a2') },
+    { question: t('howItWorks.faq.q3'), answer: t('howItWorks.faq.a3') },
+    { question: t('howItWorks.faq.q4'), answer: t('howItWorks.faq.a4') },
+    { question: t('howItWorks.faq.q5'), answer: t('howItWorks.faq.a5') },
+  ];
+
+  const risks = [
+    t('howItWorks.risks.item1'),
+    t('howItWorks.risks.item2'),
+    t('howItWorks.risks.item3'),
+    t('howItWorks.risks.item4'),
+  ];
+
+  const hakSewaItems = [
+    t('howItWorks.hakSewa.item1'),
+    t('howItWorks.hakSewa.item2'),
+    t('howItWorks.hakSewa.item3'),
+    t('howItWorks.hakSewa.item4'),
+    t('howItWorks.hakSewa.item5'),
+  ];
+
+  const rentalItems = [
+    t('howItWorks.rental.item1'),
+    t('howItWorks.rental.item2'),
+    t('howItWorks.rental.item3'),
+    t('howItWorks.rental.item4'),
+  ];
+
   return (
     <Layout>
       {/* Hero */}
@@ -106,14 +85,10 @@ export default function HowItWorks() {
           className="max-w-3xl"
         >
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-light leading-tight">
-            Buying Property in Bali – Clear, Legal, and Structured
+            {t('howItWorks.hero.title')}
           </h1>
           <p className="mt-8 font-sans text-lg text-muted-foreground leading-relaxed">
-            Investing in Indonesian real estate is straightforward when it is approached 
-            with the right structure and professional guidance. This page explains – in 
-            practical terms – how foreign investors purchase, own, and earn income from 
-            property developed by Wahi. Our goal is to remove uncertainty and provide a 
-            transparent, step-by-step framework from first enquiry to completed ownership.
+            {t('howItWorks.hero.description')}
           </p>
         </motion.div>
       </Section>
@@ -128,36 +103,20 @@ export default function HowItWorks() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl font-light">
-              The Most Common Model: Hak Sewa (Leasehold)
+              {t('howItWorks.hakSewa.title')}
             </h2>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Wahi projects for international buyers are primarily structured using 
-              Hak Sewa – long-term leasehold ownership. This is the standard and most 
-              practical way for foreigners to own property in Indonesia.
+              {t('howItWorks.hakSewa.description')}
             </p>
             <div className="mt-6 space-y-4">
-              <h3 className="font-sans text-sm font-medium">Typical terms:</h3>
+              <h3 className="font-sans text-sm font-medium">{t('howItWorks.hakSewa.terms')}</h3>
               <ul className="space-y-2">
-                <li className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                  <span className="font-sans text-sm text-muted-foreground">Initial lease period: around 25–30 years</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                  <span className="font-sans text-sm text-muted-foreground">Contractually guaranteed right to extend</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                  <span className="font-sans text-sm text-muted-foreground">Full legal control of the unit during the lease</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                  <span className="font-sans text-sm text-muted-foreground">Right to rent, resell, or transfer the property</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                  <span className="font-sans text-sm text-muted-foreground">Leasehold is widely used across Bali and Indonesia for villas, apartments, and resort residences and is recognized as a secure and bankable structure</span>
-                </li>
+                {hakSewaItems.map((item, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                    <span className="font-sans text-sm text-muted-foreground">{item}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </motion.div>
@@ -169,37 +128,34 @@ export default function HowItWorks() {
             transition={{ duration: 0.6, delay: 0.15 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl font-light">
-              A Common Misconception About Extensions
+              {t('howItWorks.misconception.title')}
             </h2>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Many first-time buyers worry that extending a lease means "buying the whole 
-              property again." This is not the case. When a lease is extended, the owner 
-              normally pays only for:
+              {t('howItWorks.misconception.description')}
             </p>
             <ul className="mt-4 space-y-2">
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">The value of the land portion</span>
+                <span className="font-sans text-sm text-muted-foreground">{t('howItWorks.misconception.item1')}</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">Not for the building itself</span>
+                <span className="font-sans text-sm text-muted-foreground">{t('howItWorks.misconception.item2')}</span>
               </li>
             </ul>
             <div className="mt-6 p-6 border border-foreground">
-              <h4 className="font-sans text-xs tracking-widest uppercase text-muted-foreground mb-3">Example</h4>
+              <h4 className="font-sans text-xs tracking-widest uppercase text-muted-foreground mb-3">{t('howItWorks.misconception.example')}</h4>
               <ul className="space-y-1 font-sans text-sm text-muted-foreground">
-                <li>Purchase price of a unit: USD 300,000</li>
-                <li>Building value: majority of the price</li>
-                <li>Land value: a smaller component</li>
+                <li>{t('howItWorks.misconception.exampleLine1')}</li>
+                <li>{t('howItWorks.misconception.exampleLine2')}</li>
+                <li>{t('howItWorks.misconception.exampleLine3')}</li>
               </ul>
               <p className="mt-4 font-sans text-sm text-muted-foreground">
-                At the time of extension, the cost is typically only 10–20% of the original 
-                purchase price, depending on the project and land values at that time.
+                {t('howItWorks.misconception.exampleNote')}
               </p>
             </div>
             <p className="mt-6 font-sans text-sm text-muted-foreground leading-relaxed">
-              This makes long-term ownership both predictable and economically reasonable.
+              {t('howItWorks.misconception.closing')}
             </p>
           </motion.div>
         </div>
@@ -215,10 +171,10 @@ export default function HowItWorks() {
           className="mb-12"
         >
           <h2 className="font-serif text-3xl lg:text-4xl font-light">
-            From First Contact to Ownership
+            {t('howItWorks.process.title')}
           </h2>
           <p className="mt-4 font-sans text-base text-muted-foreground">
-            Step-by-Step Process
+            {t('howItWorks.process.subtitle')}
           </p>
         </motion.div>
 
@@ -254,44 +210,32 @@ export default function HowItWorks() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl font-light">
-              Rental Income & Management
+              {t('howItWorks.rental.title')}
             </h2>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Most Wahi buyers are overseas investors who want a completely hands-off 
-              experience. Each project is designed with professional operations in mind:
+              {t('howItWorks.rental.description')}
             </p>
             <ul className="mt-6 space-y-2">
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">On-site management teams</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">Marketing and bookings</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">Maintenance and reporting</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                <span className="font-sans text-sm text-muted-foreground">Transparent financial statements</span>
-              </li>
+              {rentalItems.map((item, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                  <span className="font-sans text-sm text-muted-foreground">{item}</span>
+                </li>
+              ))}
             </ul>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Owners can typically choose between:
+              {t('howItWorks.rental.optionsIntro')}
             </p>
             <ul className="mt-4 space-y-2">
-              {ownerOptions.map((item) => (
-                <li key={item} className="flex items-start gap-3">
+              {ownerOptions.map((item, index) => (
+                <li key={index} className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
                   <span className="font-sans text-sm text-muted-foreground">{item}</span>
                 </li>
               ))}
             </ul>
             <p className="mt-6 font-sans text-sm text-muted-foreground leading-relaxed">
-              All details are explained clearly before purchase so expectations remain 
-              realistic and aligned.
+              {t('howItWorks.rental.closing')}
             </p>
           </motion.div>
 
@@ -302,33 +246,32 @@ export default function HowItWorks() {
             transition={{ duration: 0.6, delay: 0.15 }}
           >
             <h2 className="font-serif text-3xl lg:text-4xl font-light">
-              Legal and Financial Transparency
+              {t('howItWorks.legal.title')}
             </h2>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Wahi works only with:
+              {t('howItWorks.legal.intro')}
             </p>
             <ul className="mt-4 space-y-2">
-              {legalPartners.map((item) => (
-                <li key={item} className="flex items-start gap-3">
+              {legalPartners.map((item, index) => (
+                <li key={index} className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
                   <span className="font-sans text-sm text-muted-foreground">{item}</span>
                 </li>
               ))}
             </ul>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Every step is documented, and investors receive clear explanations of:
+              {t('howItWorks.legal.docsIntro')}
             </p>
             <ul className="mt-4 space-y-2">
-              {documentationItems.map((item) => (
-                <li key={item} className="flex items-start gap-3">
+              {documentationItems.map((item, index) => (
+                <li key={index} className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
                   <span className="font-sans text-sm text-muted-foreground">{item}</span>
                 </li>
               ))}
             </ul>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Our role is to ensure you understand exactly what you are buying and 
-              how it functions in practice.
+              {t('howItWorks.legal.closing')}
             </p>
           </motion.div>
         </div>
@@ -344,7 +287,7 @@ export default function HowItWorks() {
           className="mb-12"
         >
           <h2 className="font-serif text-3xl lg:text-4xl font-light">
-            Frequently Asked Questions
+            {t('howItWorks.faq.title')}
           </h2>
         </motion.div>
 
@@ -384,23 +327,21 @@ export default function HowItWorks() {
           className="max-w-3xl"
         >
           <h2 className="font-serif text-3xl lg:text-4xl font-light">
-            Risks to Understand
+            {t('howItWorks.risks.title')}
           </h2>
           <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            Like any international investment, buying property in Indonesia involves 
-            considerations such as:
+            {t('howItWorks.risks.description')}
           </p>
           <ul className="mt-4 space-y-2">
-            {risks.map((item) => (
-              <li key={item} className="flex items-start gap-3">
+            {risks.map((item, index) => (
+              <li key={index} className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
                 <span className="font-sans text-sm text-muted-foreground">{item}</span>
               </li>
             ))}
           </ul>
           <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            Wahi does not promise or guarantee returns. We focus on conservative planning, 
-            realistic assumptions, and professional execution to create resilient long-term assets.
+            {t('howItWorks.risks.closing')}
           </p>
         </motion.div>
       </Section>
@@ -415,14 +356,13 @@ export default function HowItWorks() {
           className="text-center max-w-2xl mx-auto"
         >
           <h2 className="font-serif text-3xl lg:text-4xl font-light">
-            Ready to Take the Next Step?
+            {t('howItWorks.cta.title')}
           </h2>
           <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-            If you would like to discuss how Wahi projects can fit your investment goals, 
-            the local Wahi representative is available to guide you through the process in detail.
+            {t('howItWorks.cta.description')}
           </p>
           <Button asChild size="lg" className="mt-8 font-sans text-sm tracking-wide uppercase">
-            <Link to="/contact">Book a Consultation</Link>
+            <Link to="/contact">{t('howItWorks.cta.button')}</Link>
           </Button>
         </motion.div>
       </Section>

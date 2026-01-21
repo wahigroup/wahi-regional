@@ -3,19 +3,21 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import wahiLogo from "@/assets/wahi-logo.png";
-
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Projects", href: "/projects" },
-  { name: "Why Indonesia", href: "/why-invest" },
-  { name: "How It Works", href: "/how-it-works" },
-  { name: "Contact", href: "/contact" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
+
+  const navigation = [
+    { name: t('nav.home'), href: "/" },
+    { name: t('nav.about'), href: "/about" },
+    { name: t('nav.projects'), href: "/projects" },
+    { name: t('nav.whyIndonesia'), href: "/why-invest" },
+    { name: t('nav.howItWorks'), href: "/how-it-works" },
+    { name: t('nav.contact'), href: "/contact" },
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary">
@@ -29,7 +31,7 @@ export function Header() {
         <div className="hidden lg:flex items-center gap-8">
           {navigation.map((item) => (
             <Link
-              key={item.name}
+              key={item.href}
               to={item.href}
               className={`text-sm font-sans tracking-wide uppercase transition-opacity hover:opacity-70 ${
                 location.pathname === item.href
@@ -81,7 +83,7 @@ export function Header() {
             >
               {navigation.map((item, index) => (
                 <motion.div
-                  key={item.name}
+                  key={item.href}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.1 + index * 0.05 }}
