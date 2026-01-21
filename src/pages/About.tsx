@@ -81,6 +81,35 @@ export default function About() {
               high-demand locations, focused on long-term performance rather than 
               short-term trends.
             </p>
+            <p className="mt-4 font-sans text-base text-muted-foreground leading-relaxed">
+              Our approach combines:
+            </p>
+            <ul className="mt-4 space-y-2">
+              <li className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">Strong architectural identity</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">Careful location selection</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">Practical layouts</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">Professional management</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">Transparent ownership structures</span>
+              </li>
+            </ul>
+            <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
+              Wahi develops properties that are enjoyable to own, attractive to guests, 
+              and structured to deliver sustainable results for international investors.
+            </p>
           </motion.div>
 
           <motion.div
@@ -204,19 +233,31 @@ export default function About() {
               Design shapes performance.
             </p>
             <p className="mt-4 font-sans text-base text-muted-foreground leading-relaxed">
-              Our approach combines:
+              Every Wahi project is created around the belief that better-designed properties generate better experiences—and better experiences create stronger demand.
+            </p>
+            <p className="mt-4 font-sans text-base text-muted-foreground leading-relaxed">
+              We emphasize:
             </p>
             <ul className="mt-4 space-y-2">
-              {designPrinciples.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
-                  <span className="font-sans text-sm text-muted-foreground">{item}</span>
-                </li>
-              ))}
+              <li className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">Timeless, context-sensitive architecture</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">Materials and concepts suited to Bali's environment</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">Layouts designed for guest comfort</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-foreground rounded-full" />
+                <span className="font-sans text-sm text-muted-foreground">Operational practicality for owners and managers</span>
+              </li>
             </ul>
             <p className="mt-6 font-sans text-base text-muted-foreground leading-relaxed">
-              Wahi develops properties that are enjoyable to own, attractive to guests, 
-              and structured to deliver sustainable results for international investors.
+              This design-driven approach is a key reason our properties remain competitive in the rental market over time.
             </p>
           </motion.div>
         </div>
