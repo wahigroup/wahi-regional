@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Section } from "@/components/ui/Section";
@@ -9,10 +9,60 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+interface ContactSettings {
+  email: string;
+  phone: string;
+  address: string;
+  rep_name: string;
+  rep_role: string;
+  whatsapp: string;
+}
+
 export default function Contact() {
   const { toast } = useToast();
   const { t } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [contactSettings, setContactSettings] = useState<ContactSettings>({
+    email: "info@wahigroup.id",
+    phone: "",
+    address: "Bali, Indonesia",
+    rep_name: "Regional Representative",
+    rep_role: "Investment Advisor",
+    whatsapp: "",
+  });
+
+  useEffect(() => {
+    const fetchContactSettings = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-content`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ action: "get-contact" }),
+          }
+        );
+
+        if (!response.ok) throw new Error("Failed to fetch settings");
+
+        const data = await response.json();
+        if (data.settings) {
+          setContactSettings({
+            email: data.settings.email || "info@wahigroup.id",
+            phone: data.settings.phone || "",
+            address: data.settings.address || "Bali, Indonesia",
+            rep_name: data.settings.rep_name || "Regional Representative",
+            rep_role: data.settings.rep_role || "Investment Advisor",
+            whatsapp: data.settings.whatsapp || "",
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching contact settings:", error);
+      }
+    };
+
+    fetchContactSettings();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -205,7 +255,7 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Regional Representative Placeholder */}
+            {/* Regional Representative */}
             <div className="mt-12 p-8 bg-accent">
               <h3 className="font-sans text-xs tracking-widest uppercase text-muted-foreground mb-6">
                 {t('contact.rep.title')}
@@ -215,11 +265,12 @@ export default function Contact() {
                   <span className="font-sans text-xs text-muted-foreground">{t('contact.rep.photo')}</span>
                 </div>
                 <div className="space-y-2">
-                  <p className="font-serif text-lg">{t('contact.rep.name')}</p>
-                  <p className="font-sans text-sm text-muted-foreground">{t('contact.rep.role')}</p>
+                  <p className="font-serif text-lg">{contactSettings.rep_name}</p>
+                  <p className="font-sans text-sm text-muted-foreground">{contactSettings.rep_role}</p>
                   <div className="pt-2 space-y-1 font-sans text-sm text-muted-foreground">
-                    <p>info@wahigroup.id</p>
-                    <p>{t('footer.baliIndonesia')}</p>
+                    <p>{contactSettings.email}</p>
+                    {contactSettings.phone && <p>{contactSettings.phone}</p>}
+                    <p>{contactSettings.address}</p>
                   </div>
                 </div>
               </div>

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
@@ -5,10 +6,31 @@ import { Layout } from "@/components/layout/Layout";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import elementsResidence from "@/assets/elements-residence.jpg";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// Fallback images
+import elementsResidenceFallback from "@/assets/elements-residence.jpg";
 import sabawa from "@/assets/sabawa.jpg";
-import omaSora from "@/assets/oma-sora.jpg";
-import bocoaJimbaran from "@/assets/bocoa-jimbaran.png";
+import omaSoraFallback from "@/assets/oma-sora.jpg";
+import bocoaJimbaranFallback from "@/assets/bocoa-jimbaran.png";
+
+interface Project {
+  id: string;
+  title: string;
+  location: string;
+  type: string;
+  description: string;
+  image_url: string;
+  status: string;
+  is_featured: boolean;
+  display_order: number;
+}
+
+const fallbackImages: Record<string, string> = {
+  "Elements Residence": elementsResidenceFallback,
+  "Oma Sora": omaSoraFallback,
+  "Bocoa Jimbaran": bocoaJimbaranFallback,
+};
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -17,6 +39,8 @@ const fadeUp = {
 
 export default function Index() {
   const { t } = useLanguage();
+  const [featuredProjects, setFeaturedProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const pillars = [
     {
@@ -32,6 +56,37 @@ export default function Index() {
       description: t('index.pillars.structureDesc'),
     },
   ];
+
+  useEffect(() => {
+    const fetchFeaturedProjects = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-projects`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ action: "featured" }),
+          }
+        );
+
+        if (!response.ok) throw new Error("Failed to fetch projects");
+
+        const data = await response.json();
+        setFeaturedProjects(data.projects || []);
+      } catch (error) {
+        console.error("Error fetching featured projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFeaturedProjects();
+  }, []);
+
+  const getProjectImage = (project: Project) => {
+    if (project.image_url) return project.image_url;
+    return fallbackImages[project.title] || elementsResidenceFallback;
+  };
 
   return (
     <Layout>
@@ -116,7 +171,7 @@ export default function Index() {
             className="relative aspect-[4/3] lg:aspect-square"
           >
             <img
-              src={elementsResidence}
+              src={elementsResidenceFallback}
               alt="Elements Residence - Modern apartments in Canggu"
               className="w-full h-full object-cover grayscale"
             />
@@ -164,35 +219,44 @@ export default function Index() {
           subtitle=""
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            { image: elementsResidence, title: "Elements Residence", location: "Canggu, Bali", type: "Modern Apartments" },
-            { image: bocoaJimbaran, title: "Bocoa Jimbaran", location: "Jimbaran, Bali", type: "Adobe-style Villas" },
-            { image: omaSora, title: "Oma Sora", location: "Umalas, Bali", type: "Earth-formed Architecture" },
-          ].map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group cursor-pointer"
-            >
-              <div className="aspect-[4/5] overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
-                />
+        {loading ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map((i) => (
+              <div key={i}>
+                <Skeleton className="aspect-[4/5] w-full" />
+                <Skeleton className="h-4 w-24 mt-4" />
+                <Skeleton className="h-6 w-48 mt-2" />
+                <Skeleton className="h-4 w-32 mt-1" />
               </div>
-              <div className="mt-4">
-                <p className="font-sans text-xs tracking-widest uppercase text-muted-foreground">{project.type}</p>
-                <h3 className="font-serif text-xl mt-1">{project.title}</h3>
-                <p className="font-sans text-sm text-muted-foreground">{project.location}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group cursor-pointer"
+              >
+                <div className="aspect-[4/5] overflow-hidden">
+                  <img
+                    src={getProjectImage(project)}
+                    alt={project.title}
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="mt-4">
+                  <p className="font-sans text-xs tracking-widest uppercase text-muted-foreground">{project.type}</p>
+                  <h3 className="font-serif text-xl mt-1">{project.title}</h3>
+                  <p className="font-sans text-sm text-muted-foreground">{project.location}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
 
         <div className="mt-12 text-center">
           <Button asChild variant="outline" size="lg" className="font-sans text-sm tracking-wide uppercase">
