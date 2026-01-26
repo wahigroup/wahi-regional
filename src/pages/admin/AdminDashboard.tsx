@@ -6,6 +6,8 @@ import { toast } from "sonner";
 import AdminUsers from "./components/AdminUsers";
 import HeroSettings from "./components/HeroSettings";
 import ExportData from "./components/ExportData";
+import ProjectsManager from "./components/ProjectsManager";
+import ContactSettings from "./components/ContactSettings";
 
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -82,15 +84,25 @@ const AdminDashboard = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="hero" className="space-y-6">
-          <TabsList>
+        <Tabs defaultValue="projects" className="space-y-6">
+          <TabsList className="flex-wrap">
+            <TabsTrigger value="projects">Projects</TabsTrigger>
             <TabsTrigger value="hero">Hero Settings</TabsTrigger>
+            <TabsTrigger value="contact">Contact Settings</TabsTrigger>
             <TabsTrigger value="users">Admin Users</TabsTrigger>
             <TabsTrigger value="export">Export Data</TabsTrigger>
           </TabsList>
 
+          <TabsContent value="projects">
+            <ProjectsManager />
+          </TabsContent>
+
           <TabsContent value="hero">
             <HeroSettings />
+          </TabsContent>
+
+          <TabsContent value="contact">
+            <ContactSettings />
           </TabsContent>
 
           <TabsContent value="users">
