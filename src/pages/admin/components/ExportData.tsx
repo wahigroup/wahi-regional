@@ -97,9 +97,7 @@ const ExportData = () => {
         <Info className="h-4 w-4" />
         <AlertTitle>Website Source Files</AlertTitle>
         <AlertDescription>
-          Source code files (HTML, CSS, JavaScript, etc.) are managed through the Lovable 
-          platform. To export the complete website codebase, use the GitHub integration 
-          in Settings → GitHub, or download directly from the Lovable editor.
+          You can download the source code files from the GitHub link provided, or ask Wahi's head office.
         </AlertDescription>
       </Alert>
     </div>

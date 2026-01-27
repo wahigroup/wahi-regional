@@ -87,7 +87,7 @@ const AdminDashboard = () => {
         <Tabs defaultValue="projects" className="space-y-6">
           <TabsList className="flex-wrap">
             <TabsTrigger value="projects">Projects</TabsTrigger>
-            <TabsTrigger value="hero">Hero Settings</TabsTrigger>
+            <TabsTrigger value="hero">Content Settings</TabsTrigger>
             <TabsTrigger value="contact">Contact Settings</TabsTrigger>
             <TabsTrigger value="users">Admin Users</TabsTrigger>
             <TabsTrigger value="export">Export Data</TabsTrigger>
