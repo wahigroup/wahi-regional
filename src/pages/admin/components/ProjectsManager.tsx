@@ -9,6 +9,13 @@ import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { Trash2, Plus, Pencil, GripVertical } from "lucide-react";
 
+// Import fallback images
+import elementsResidenceFallback from "@/assets/elements-residence.jpg";
+import sabawaFallback from "@/assets/sabawa.jpg";
+import omaSoraFallback from "@/assets/oma-sora.jpg";
+import bocoaJimbaranFallback from "@/assets/bocoa-jimbaran.png";
+import saltStoneFallback from "@/assets/salt-stone.png";
+
 interface Project {
   id: string;
   title: string;
@@ -20,6 +27,28 @@ interface Project {
   is_featured: boolean;
   display_order: number;
 }
+
+const fallbackImages: Record<string, string> = {
+  "Elements Residence": elementsResidenceFallback,
+  "Sabawa": sabawaFallback,
+  "Oma Sora": omaSoraFallback,
+  "Bocoa Jimbaran": bocoaJimbaranFallback,
+  "Salt & Stone": saltStoneFallback,
+};
+
+// Helper to get actual image URL (handles /src/assets paths that don't work in production)
+const getProjectImage = (project: { title: string; image_url?: string }): string | null => {
+  // If image_url is a /src/assets path, use fallback
+  if (project.image_url?.startsWith("/src/assets")) {
+    return fallbackImages[project.title] || null;
+  }
+  // If it's a valid URL or storage path, use it
+  if (project.image_url && (project.image_url.startsWith("http") || project.image_url.startsWith("blob:"))) {
+    return project.image_url;
+  }
+  // Fallback to title-based image
+  return fallbackImages[project.title] || null;
+};
 
 const emptyProject = {
   title: "",
@@ -218,17 +247,20 @@ const ProjectsManager = () => {
             >
               <GripVertical className="h-5 w-5 text-muted-foreground flex-shrink-0" />
               
-              {project.image_url ? (
-                <img
-                  src={project.image_url}
-                  alt={project.title}
-                  className="w-16 h-16 object-cover rounded flex-shrink-0"
-                />
-              ) : (
-                <div className="w-16 h-16 bg-muted rounded flex items-center justify-center flex-shrink-0">
-                  <span className="text-xs text-muted-foreground">No image</span>
-                </div>
-              )}
+              {(() => {
+                const imgSrc = getProjectImage(project);
+                return imgSrc ? (
+                  <img
+                    src={imgSrc}
+                    alt={project.title}
+                    className="w-16 h-16 object-cover rounded flex-shrink-0"
+                  />
+                ) : (
+                  <div className="w-16 h-16 bg-muted rounded flex items-center justify-center flex-shrink-0">
+                    <span className="text-xs text-muted-foreground">No image</span>
+                  </div>
+                );
+              })()}
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
@@ -333,17 +365,23 @@ const ProjectsManager = () => {
                 <div className="space-y-2">
                   <Label>Image</Label>
                   <div className="flex items-center gap-4">
-                    {editingProject.image_url ? (
-                      <img
-                        src={editingProject.image_url}
-                        alt="Preview"
-                        className="w-24 h-24 object-cover rounded"
-                      />
-                    ) : (
-                      <div className="w-24 h-24 bg-muted rounded flex items-center justify-center">
-                        <span className="text-xs text-muted-foreground">No image</span>
-                      </div>
-                    )}
+                    {(() => {
+                      const imgSrc = editingProject.title ? getProjectImage({ 
+                        title: editingProject.title, 
+                        image_url: editingProject.image_url 
+                      }) : null;
+                      return imgSrc ? (
+                        <img
+                          src={imgSrc}
+                          alt="Preview"
+                          className="w-24 h-24 object-cover rounded"
+                        />
+                      ) : (
+                        <div className="w-24 h-24 bg-muted rounded flex items-center justify-center">
+                          <span className="text-xs text-muted-foreground">No image</span>
+                        </div>
+                      );
+                    })()}
                     <div className="flex-1 space-y-2">
                       <Input
                         type="file"
