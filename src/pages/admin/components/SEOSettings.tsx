@@ -28,7 +28,7 @@ interface SEOSettings {
 const defaultSettings: SEOSettings = {
   siteTitle: "Wahi | Cross-Border Real Estate Investment in Indonesia",
   siteDescription: "A calm, transparent approach for serious investors seeking stable demand and materially higher rental income in Indonesia's most resilient lifestyle destinations.",
-  ogImage: "https://lovable.dev/opengraph-image-p98pqg.png",
+  ogImage: "https://regional1.lovable.app/images/og-default.jpg",
   twitterHandle: "@WahiGroup",
   keywords: "real estate, investment, Indonesia, Bali, property, villa, apartments",
   author: "Wahi Group",
