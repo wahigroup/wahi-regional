@@ -818,6 +818,91 @@ interface LanguageProviderProps {
   children: ReactNode;
 }
 
+// Map CMS content structure to translation keys
+function mapCmsToTranslations(cmsContent: Record<string, any>): Record<Language, Record<string, string>> {
+  const result: Record<Language, Record<string, string>> = { en: {}, id: {}, zh: {} };
+  
+  const mappings: Record<string, string> = {
+    // Home page mappings
+    'home.hero.headline': 'index.hero.title',
+    'home.hero.subtitle': 'index.hero.subtitle',
+    'home.hero.buttonPrimary': 'index.hero.bookConsultation',
+    'home.hero.buttonSecondary': 'index.hero.exploreProjects',
+    'home.invest.title': 'index.invest.title',
+    'home.invest.paragraph1': 'index.invest.description1',
+    'home.invest.paragraph2': 'index.invest.description2',
+    'home.invest.paragraph3': 'index.invest.description3',
+    'home.pillars.pillar1Title': 'index.pillars.location',
+    'home.pillars.pillar1Desc': 'index.pillars.locationDesc',
+    'home.pillars.pillar2Title': 'index.pillars.design',
+    'home.pillars.pillar2Desc': 'index.pillars.designDesc',
+    'home.pillars.pillar3Title': 'index.pillars.structure',
+    'home.pillars.pillar3Desc': 'index.pillars.structureDesc',
+    'home.pillars.quote': 'index.pillars.quote',
+    'home.whyBali.title': 'index.whyBali.title',
+    'home.whyBali.demand': 'index.whyBali.demand',
+    'home.whyBali.demandDesc': 'index.whyBali.demandDesc',
+    'home.whyBali.supply': 'index.whyBali.supply',
+    'home.whyBali.supplyDesc': 'index.whyBali.supplyDesc',
+    'home.whyBali.returns': 'index.whyBali.returns',
+    'home.whyBali.returnsDesc': 'index.whyBali.returnsDesc',
+    'home.whyBali.learnMore': 'index.whyBali.learnMore',
+    'home.cta.title': 'index.cta.title',
+    'home.cta.description': 'index.cta.description',
+    'home.cta.button': 'index.cta.button',
+    'home.featured.title': 'index.featured.title',
+    'home.featured.viewAll': 'index.featured.viewAll',
+    // About page mappings
+    'about.hero.title': 'about.hero.title',
+    'about.hero.description': 'about.hero.description',
+    'about.story.title': 'about.whoWeAre.title',
+    'about.story.paragraph1': 'about.whoWeAre.description1',
+    'about.story.paragraph2': 'about.whoWeAre.description2',
+    'about.mission.title': 'about.whatWeDo.title',
+    'about.mission.description': 'about.whatWeDo.description',
+    // Projects page mappings
+    'projects.hero.title': 'projects.hero.title',
+    'projects.hero.description': 'projects.hero.description',
+    'projects.cta.title': 'projects.cta.title',
+    'projects.cta.description': 'projects.cta.description',
+    'projects.cta.button': 'projects.cta.button',
+    // Why Invest page mappings
+    'whyInvest.hero.title': 'whyInvest.hero.title',
+    'whyInvest.hero.description': 'whyInvest.hero.description',
+    // How It Works page mappings
+    'howItWorks.hero.title': 'howItWorks.hero.title',
+    'howItWorks.hero.description': 'howItWorks.hero.description',
+    // Contact page mappings
+    'contact.hero.title': 'contact.hero.title',
+    'contact.hero.description': 'contact.hero.description',
+  };
+
+  // Process each page in CMS content
+  for (const [pageName, pageContent] of Object.entries(cmsContent)) {
+    if (typeof pageContent !== 'object' || pageContent === null) continue;
+    
+    for (const [sectionKey, sectionContent] of Object.entries(pageContent as Record<string, any>)) {
+      if (typeof sectionContent !== 'object' || sectionContent === null) continue;
+      
+      for (const [fieldKey, fieldContent] of Object.entries(sectionContent as Record<string, any>)) {
+        if (typeof fieldContent !== 'object' || fieldContent === null) continue;
+        
+        const cmsKey = `${pageName}.${sectionKey}.${fieldKey}`;
+        const translationKey = mappings[cmsKey];
+        
+        if (translationKey) {
+          const content = fieldContent as { en?: string; id?: string; zh?: string };
+          if (content.en) result.en[translationKey] = content.en;
+          if (content.id) result.id[translationKey] = content.id;
+          if (content.zh) result.zh[translationKey] = content.zh;
+        }
+      }
+    }
+  }
+  
+  return result;
+}
+
 export function LanguageProvider({ children }: LanguageProviderProps) {
   const [language, setLanguage] = useState<Language>(() => {
     if (typeof window !== 'undefined') {
@@ -829,12 +914,47 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
     return 'en';
   });
 
+  const [cmsTranslations, setCmsTranslations] = useState<Record<Language, Record<string, string>>>({
+    en: {},
+    id: {},
+    zh: {},
+  });
+
+  // Fetch CMS content on mount
+  useEffect(() => {
+    const fetchCmsContent = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-content`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'get-page-section', pageName: 'all_content', sectionKey: 'pages' }),
+          }
+        );
+
+        if (!response.ok) return;
+
+        const data = await response.json();
+        if (data.content && Object.keys(data.content).length > 0) {
+          const mapped = mapCmsToTranslations(data.content);
+          setCmsTranslations(mapped);
+        }
+      } catch (error) {
+        console.error('Error fetching CMS content:', error);
+      }
+    };
+
+    fetchCmsContent();
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('wahi-language', language);
   }, [language]);
 
   const t = (key: string): string => {
-    return translations[language][key] || translations['en'][key] || key;
+    // First check CMS translations, then fall back to default translations
+    return cmsTranslations[language][key] || translations[language][key] || translations['en'][key] || key;
   };
 
   return (
