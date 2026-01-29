@@ -8,6 +8,7 @@ import HeroSettings from "./components/HeroSettings";
 import ExportData from "./components/ExportData";
 import ProjectsManager from "./components/ProjectsManager";
 import ContactSettings from "./components/ContactSettings";
+import SEOSettings from "./components/SEOSettings";
 
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -87,6 +88,7 @@ const AdminDashboard = () => {
         <Tabs defaultValue="projects" className="space-y-6">
           <TabsList className="flex-wrap">
             <TabsTrigger value="projects">Projects</TabsTrigger>
+            <TabsTrigger value="seo">SEO Settings</TabsTrigger>
             <TabsTrigger value="hero">Content Settings</TabsTrigger>
             <TabsTrigger value="contact">Contact Settings</TabsTrigger>
             <TabsTrigger value="users">Admin Users</TabsTrigger>
@@ -95,6 +97,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="projects">
             <ProjectsManager />
+          </TabsContent>
+
+          <TabsContent value="seo">
+            <SEOSettings />
           </TabsContent>
 
           <TabsContent value="hero">
