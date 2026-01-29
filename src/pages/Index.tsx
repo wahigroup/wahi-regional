@@ -84,7 +84,15 @@ export default function Index() {
   }, []);
 
   const getProjectImage = (project: Project) => {
-    if (project.image_url) return project.image_url;
+    // If image_url is a /src/assets path, use fallback (these don't work in production)
+    if (project.image_url?.startsWith("/src/assets")) {
+      return fallbackImages[project.title] || elementsResidenceFallback;
+    }
+    // If it's a valid URL or storage path, use it
+    if (project.image_url && (project.image_url.startsWith("http") || project.image_url.startsWith("blob:"))) {
+      return project.image_url;
+    }
+    // Fallback to title-based image
     return fallbackImages[project.title] || elementsResidenceFallback;
   };
 
