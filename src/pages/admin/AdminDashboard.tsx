@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import AdminUsers from "./components/AdminUsers";
-import HeroSettings from "./components/HeroSettings";
+import ContentSettings from "./components/ContentSettings";
 import ExportData from "./components/ExportData";
 import ProjectsManager from "./components/ProjectsManager";
 import ContactSettings from "./components/ContactSettings";
@@ -104,7 +104,7 @@ const AdminDashboard = () => {
           </TabsContent>
 
           <TabsContent value="hero">
-            <HeroSettings />
+            <ContentSettings />
           </TabsContent>
 
           <TabsContent value="contact">
