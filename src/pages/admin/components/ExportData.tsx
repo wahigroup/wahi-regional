@@ -54,8 +54,8 @@ const ExportData = () => {
       <Card>
         <CardHeader>
           <CardTitle>Export Full Database</CardTitle>
-          <CardDescription>
-            Download complete database for independent deployment outside Lovable
+        <CardDescription>
+          Download complete database for independent deployment
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
