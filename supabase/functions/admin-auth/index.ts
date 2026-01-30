@@ -53,7 +53,6 @@ Deno.serve(async (req) => {
 
     switch (action) {
       case "init": {
-        // Check if any admin exists, if not create default
         const { data: existingAdmins } = await supabase
           .from("admin_users")
           .select("id")
@@ -65,6 +64,7 @@ Deno.serve(async (req) => {
             username: "admin",
             password_hash: passwordHash,
             role: "admin",
+            full_name: "Administrator",
           });
           return new Response(
             JSON.stringify({ message: "Default admin created" }),
@@ -79,10 +79,8 @@ Deno.serve(async (req) => {
       }
 
       case "seed-super-admin": {
-        // Create super admin account if not exists
-        const { username, password } = params;
+        const { username, password, fullName } = params;
         
-        // Check if this username already exists
         const { data: existing } = await supabase
           .from("admin_users")
           .select("id")
@@ -90,11 +88,14 @@ Deno.serve(async (req) => {
           .maybeSingle();
 
         if (existing) {
-          // Update to super_admin if exists
           const passwordHash = await hashPassword(password);
           await supabase
             .from("admin_users")
-            .update({ password_hash: passwordHash, role: "super_admin" })
+            .update({ 
+              password_hash: passwordHash, 
+              role: "super_admin",
+              full_name: fullName || username 
+            })
             .eq("username", username);
           
           return new Response(
@@ -108,6 +109,7 @@ Deno.serve(async (req) => {
           username,
           password_hash: passwordHash,
           role: "super_admin",
+          full_name: fullName || username,
         });
 
         if (error) {
@@ -128,7 +130,7 @@ Deno.serve(async (req) => {
 
         const { data: user, error } = await supabase
           .from("admin_users")
-          .select("id, username, password_hash, role")
+          .select("id, username, password_hash, role, full_name")
           .eq("username", username)
           .maybeSingle();
 
@@ -151,7 +153,12 @@ Deno.serve(async (req) => {
         return new Response(
           JSON.stringify({
             token,
-            user: { id: user.id, username: user.username, role: user.role },
+            user: { 
+              id: user.id, 
+              username: user.username, 
+              role: user.role,
+              full_name: user.full_name || user.username 
+            },
           }),
           { headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
@@ -168,15 +175,19 @@ Deno.serve(async (req) => {
           );
         }
 
-        // Get user role
         const { data: user } = await supabase
           .from("admin_users")
-          .select("role")
+          .select("role, full_name, username")
           .eq("id", payload.userId)
           .maybeSingle();
 
         return new Response(
-          JSON.stringify({ valid: true, userId: payload.userId, role: user?.role || "admin" }),
+          JSON.stringify({ 
+            valid: true, 
+            userId: payload.userId, 
+            role: user?.role || "admin",
+            full_name: user?.full_name || user?.username || "Admin"
+          }),
           { headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
@@ -194,7 +205,7 @@ Deno.serve(async (req) => {
 
         const { data: users, error } = await supabase
           .from("admin_users")
-          .select("id, username, role, created_at")
+          .select("id, username, role, full_name, created_at")
           .order("created_at", { ascending: false });
 
         if (error) {
@@ -204,14 +215,20 @@ Deno.serve(async (req) => {
           );
         }
 
+        const { data: currentUser } = await supabase
+          .from("admin_users")
+          .select("role")
+          .eq("id", payload.userId)
+          .maybeSingle();
+
         return new Response(
-          JSON.stringify({ users }),
+          JSON.stringify({ users, currentUserRole: currentUser?.role || "admin" }),
           { headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
 
       case "create": {
-        const { token, username, password } = params;
+        const { token, username, password, fullName } = params;
         const payload = verifyToken(token);
 
         if (!payload) {
@@ -225,7 +242,8 @@ Deno.serve(async (req) => {
         const { error } = await supabase.from("admin_users").insert({
           username,
           password_hash: passwordHash,
-          role: "admin", // New users are always regular admin
+          role: "admin",
+          full_name: fullName || username,
         });
 
         if (error) {
@@ -259,7 +277,6 @@ Deno.serve(async (req) => {
           );
         }
 
-        // Check if target user is super_admin - cannot be deleted
         const { data: targetUser } = await supabase
           .from("admin_users")
           .select("role")
@@ -292,7 +309,7 @@ Deno.serve(async (req) => {
       }
 
       case "update": {
-        const { token, userId, username, password } = params;
+        const { token, userId, username, password, fullName } = params;
         const authPayload = verifyToken(token);
 
         if (!authPayload) {
@@ -302,7 +319,6 @@ Deno.serve(async (req) => {
           );
         }
 
-        // Check if target user is super_admin - only super_admin can edit super_admin
         const { data: targetUser } = await supabase
           .from("admin_users")
           .select("role")
@@ -322,9 +338,10 @@ Deno.serve(async (req) => {
           );
         }
 
-        const updateData: { username?: string; password_hash?: string } = {};
+        const updateData: { username?: string; password_hash?: string; full_name?: string } = {};
         if (username) updateData.username = username;
         if (password) updateData.password_hash = await hashPassword(password);
+        if (fullName !== undefined) updateData.full_name = fullName;
 
         const { error } = await supabase
           .from("admin_users")

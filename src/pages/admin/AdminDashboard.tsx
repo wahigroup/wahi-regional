@@ -13,7 +13,7 @@ import DefaultLanguageSettings from "./components/DefaultLanguageSettings";
 
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<{ username: string } | null>(null);
+  const [user, setUser] = useState<{ username: string; full_name?: string; role?: string } | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const AdminDashboard = () => {
       return;
     }
 
-    // Verify token
+    // Verify token and get updated user info
     const verifyToken = async () => {
       try {
         const response = await fetch(
@@ -41,7 +41,15 @@ const AdminDashboard = () => {
           throw new Error("Invalid token");
         }
 
-        setUser(JSON.parse(storedUser));
+        const data = await response.json();
+        const parsedUser = JSON.parse(storedUser);
+        
+        // Update with fresh data from server
+        setUser({
+          ...parsedUser,
+          full_name: data.full_name || parsedUser.full_name || parsedUser.username,
+          role: data.role || parsedUser.role,
+        });
       } catch {
         localStorage.removeItem("admin_token");
         localStorage.removeItem("admin_user");
@@ -76,7 +84,7 @@ const AdminDashboard = () => {
           <h1 className="text-xl font-bold">WAHI Admin</h1>
           <div className="flex items-center gap-4">
             <span className="text-sm text-muted-foreground">
-              Welcome, {user?.username}
+              Welcome, {user?.full_name || user?.username}
             </span>
             <Button variant="outline" size="sm" onClick={handleLogout}>
               Logout
