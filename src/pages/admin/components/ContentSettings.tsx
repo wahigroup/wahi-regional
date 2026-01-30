@@ -790,6 +790,47 @@ const ContentSettings = () => {
     fetchAllContent();
   }, []);
 
+  // Check if content needs seeding (missing languages like ru, fr, es)
+  const contentNeedsSeeding = (savedContent: Record<string, PageContent>): boolean => {
+    // Check if home.hero.headline exists and has all 6 languages
+    const testField = savedContent?.home?.hero?.headline;
+    if (!testField) return true;
+    
+    const requiredLangs = ['en', 'id', 'zh', 'ru', 'fr', 'es'];
+    for (const lang of requiredLangs) {
+      if (!testField[lang as keyof typeof testField] || testField[lang as keyof typeof testField] === '') {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  // Auto-seed content with all 6 languages if needed
+  const seedContentToDatabase = async (contentToSeed: Record<string, PageContent>) => {
+    const token = localStorage.getItem("admin_token");
+    if (!token) return;
+
+    try {
+      await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-content`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "update-page-section",
+            token,
+            pageName: "all_content",
+            sectionKey: "pages",
+            content: contentToSeed,
+          }),
+        }
+      );
+      console.log("Content auto-seeded with all 6 languages");
+    } catch (error) {
+      console.error("Error seeding content:", error);
+    }
+  };
+
   const fetchAllContent = async () => {
     try {
       const response = await fetch(
@@ -806,10 +847,19 @@ const ContentSettings = () => {
       const data = await response.json();
       if (data.content && Object.keys(data.content).length > 0) {
         // Merge saved content with defaults
-        setContent(mergeWithDefaults(data.content, defaultContent));
+        const mergedContent = mergeWithDefaults(data.content, defaultContent);
+        setContent(mergedContent);
+        
+        // Auto-seed if missing languages (ru, fr, es)
+        if (contentNeedsSeeding(data.content)) {
+          await seedContentToDatabase(mergedContent);
+          toast.info("Content database updated with all 6 languages");
+        }
       } else {
-        // Use defaults if no saved content
+        // No saved content - seed defaults to database
         setContent(defaultContent);
+        await seedContentToDatabase(defaultContent);
+        toast.info("Default content seeded to database");
       }
     } catch (error: any) {
       console.error("Error fetching content:", error);
