@@ -297,7 +297,7 @@ const AdminUsers = () => {
                     {getRoleBadge(user.role)}
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    @{user.username} • Created: {new Date(user.created_at).toLocaleDateString()}
+                    @{user.username}
                   </p>
                 </div>
               </div>
