@@ -13,7 +13,9 @@ export function Footer() {
   useEffect(() => {
     const fetchCopyright = async () => {
       try {
-        const response = await fetch(COPYRIGHT_SOURCE, { cache: "no-store" });
+        // Add timestamp to bust GitHub CDN cache
+        const cacheBuster = `?t=${Date.now()}`;
+        const response = await fetch(COPYRIGHT_SOURCE + cacheBuster, { cache: "no-store" });
         if (response.ok) {
           const data = await response.json();
           setCopyright(data.text);
