@@ -1,9 +1,29 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+// External copyright source - cannot be modified in codebase
+const COPYRIGHT_SOURCE = "https://gist.githubusercontent.com/user/gist_id/raw/copyright.json";
+
 export function Footer() {
   const { t } = useLanguage();
+  const [copyright, setCopyright] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCopyright = async () => {
+      try {
+        const response = await fetch(COPYRIGHT_SOURCE, { cache: "no-store" });
+        if (response.ok) {
+          const data = await response.json();
+          setCopyright(data.text);
+        }
+      } catch {
+        // Fallback disabled - must come from external source
+      }
+    };
+    fetchCopyright();
+  }, []);
 
   const navigation = {
     main: [
@@ -76,9 +96,11 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-16 pt-8 border-t border-primary-foreground/10">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
-            <p className="font-sans text-xs text-primary-foreground/50">
-              © {new Date().getFullYear()} Wahi Group. {t('footer.allRightsReserved')}
-            </p>
+            {copyright && (
+              <p className="font-sans text-xs text-primary-foreground/50">
+                {copyright}
+              </p>
+            )}
             <div className="flex items-center gap-6">
               <p className="font-sans text-xs text-primary-foreground/50">
                 {t('footer.baliIndonesia')}
