@@ -11,6 +11,7 @@ const languages: { code: Language; label: string }[] = [
   { code: 'en', label: 'English' },
   { code: 'id', label: 'Bahasa Indonesia' },
   { code: 'zh', label: '中文' },
+  { code: 'ru', label: 'Русский' },
 ];
 
 export function LanguageSelector() {
