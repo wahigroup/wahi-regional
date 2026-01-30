@@ -896,7 +896,7 @@ const ContentSettings = () => {
           {/* Language Selector */}
           <div className="mb-6">
             <Label className="mb-2 block">Language</Label>
-            <Tabs value={activeLang} onValueChange={(v) => setActiveLang(v as "en" | "id" | "zh" | "ru")}>
+            <Tabs value={activeLang} onValueChange={(v) => setActiveLang(v as "en" | "id" | "zh" | "ru" | "fr" | "es")}>
               <TabsList>
                 {languages.map((lang) => (
                   <TabsTrigger key={lang.code} value={lang.code}>
