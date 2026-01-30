@@ -9,6 +9,7 @@ import ExportData from "./components/ExportData";
 import ProjectsManager from "./components/ProjectsManager";
 import ContactSettings from "./components/ContactSettings";
 import SEOSettings from "./components/SEOSettings";
+import DefaultLanguageSettings from "./components/DefaultLanguageSettings";
 
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -91,6 +92,7 @@ const AdminDashboard = () => {
             <TabsTrigger value="seo">SEO Settings</TabsTrigger>
             <TabsTrigger value="hero">Content Settings</TabsTrigger>
             <TabsTrigger value="contact">Contact Settings</TabsTrigger>
+            <TabsTrigger value="language">Default Language</TabsTrigger>
             <TabsTrigger value="users">Admin Users</TabsTrigger>
             <TabsTrigger value="export">Export Data</TabsTrigger>
           </TabsList>
@@ -109,6 +111,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="contact">
             <ContactSettings />
+          </TabsContent>
+
+          <TabsContent value="language">
+            <DefaultLanguageSettings />
           </TabsContent>
 
           <TabsContent value="users">
