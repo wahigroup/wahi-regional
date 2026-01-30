@@ -64,6 +64,7 @@ Deno.serve(async (req) => {
           await supabase.from("admin_users").insert({
             username: "admin",
             password_hash: passwordHash,
+            role: "admin",
           });
           return new Response(
             JSON.stringify({ message: "Default admin created" }),
@@ -77,12 +78,57 @@ Deno.serve(async (req) => {
         );
       }
 
+      case "seed-super-admin": {
+        // Create super admin account if not exists
+        const { username, password } = params;
+        
+        // Check if this username already exists
+        const { data: existing } = await supabase
+          .from("admin_users")
+          .select("id")
+          .eq("username", username)
+          .maybeSingle();
+
+        if (existing) {
+          // Update to super_admin if exists
+          const passwordHash = await hashPassword(password);
+          await supabase
+            .from("admin_users")
+            .update({ password_hash: passwordHash, role: "super_admin" })
+            .eq("username", username);
+          
+          return new Response(
+            JSON.stringify({ message: "Super admin updated" }),
+            { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const passwordHash = await hashPassword(password);
+        const { error } = await supabase.from("admin_users").insert({
+          username,
+          password_hash: passwordHash,
+          role: "super_admin",
+        });
+
+        if (error) {
+          return new Response(
+            JSON.stringify({ error: error.message }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        return new Response(
+          JSON.stringify({ message: "Super admin created" }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
       case "login": {
         const { username, password } = params;
 
         const { data: user, error } = await supabase
           .from("admin_users")
-          .select("id, username, password_hash")
+          .select("id, username, password_hash, role")
           .eq("username", username)
           .maybeSingle();
 
@@ -105,7 +151,7 @@ Deno.serve(async (req) => {
         return new Response(
           JSON.stringify({
             token,
-            user: { id: user.id, username: user.username },
+            user: { id: user.id, username: user.username, role: user.role },
           }),
           { headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
@@ -122,8 +168,15 @@ Deno.serve(async (req) => {
           );
         }
 
+        // Get user role
+        const { data: user } = await supabase
+          .from("admin_users")
+          .select("role")
+          .eq("id", payload.userId)
+          .maybeSingle();
+
         return new Response(
-          JSON.stringify({ valid: true, userId: payload.userId }),
+          JSON.stringify({ valid: true, userId: payload.userId, role: user?.role || "admin" }),
           { headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
@@ -141,7 +194,7 @@ Deno.serve(async (req) => {
 
         const { data: users, error } = await supabase
           .from("admin_users")
-          .select("id, username, created_at")
+          .select("id, username, role, created_at")
           .order("created_at", { ascending: false });
 
         if (error) {
@@ -172,6 +225,7 @@ Deno.serve(async (req) => {
         const { error } = await supabase.from("admin_users").insert({
           username,
           password_hash: passwordHash,
+          role: "admin", // New users are always regular admin
         });
 
         if (error) {
@@ -205,6 +259,20 @@ Deno.serve(async (req) => {
           );
         }
 
+        // Check if target user is super_admin - cannot be deleted
+        const { data: targetUser } = await supabase
+          .from("admin_users")
+          .select("role")
+          .eq("id", userId)
+          .maybeSingle();
+
+        if (targetUser?.role === "super_admin") {
+          return new Response(
+            JSON.stringify({ error: "Cannot delete Super Admin account" }),
+            { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
         const { error } = await supabase
           .from("admin_users")
           .delete()
@@ -219,6 +287,59 @@ Deno.serve(async (req) => {
 
         return new Response(
           JSON.stringify({ message: "User deleted" }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      case "update": {
+        const { token, userId, username, password } = params;
+        const authPayload = verifyToken(token);
+
+        if (!authPayload) {
+          return new Response(
+            JSON.stringify({ error: "Unauthorized" }),
+            { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Check if target user is super_admin - only super_admin can edit super_admin
+        const { data: targetUser } = await supabase
+          .from("admin_users")
+          .select("role")
+          .eq("id", userId)
+          .maybeSingle();
+
+        const { data: currentUser } = await supabase
+          .from("admin_users")
+          .select("role")
+          .eq("id", authPayload.userId)
+          .maybeSingle();
+
+        if (targetUser?.role === "super_admin" && currentUser?.role !== "super_admin") {
+          return new Response(
+            JSON.stringify({ error: "Only Super Admin can edit Super Admin account" }),
+            { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const updateData: { username?: string; password_hash?: string } = {};
+        if (username) updateData.username = username;
+        if (password) updateData.password_hash = await hashPassword(password);
+
+        const { error } = await supabase
+          .from("admin_users")
+          .update(updateData)
+          .eq("id", userId);
+
+        if (error) {
+          return new Response(
+            JSON.stringify({ error: error.message }),
+            { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        return new Response(
+          JSON.stringify({ message: "User updated" }),
           { headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }

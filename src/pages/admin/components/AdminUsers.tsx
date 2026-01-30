@@ -4,12 +4,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Trash2, Plus } from "lucide-react";
+import { Trash2, Plus, Shield, ShieldCheck } from "lucide-react";
 
 interface AdminUser {
   id: string;
   username: string;
+  role: string;
   created_at: string;
 }
 
@@ -20,6 +22,7 @@ const AdminUsers = () => {
   const [newPassword, setNewPassword] = useState("");
   const [creating, setCreating] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [currentUserRole, setCurrentUserRole] = useState<string>("admin");
 
   const fetchUsers = async () => {
     const token = localStorage.getItem("admin_token");
@@ -44,8 +47,30 @@ const AdminUsers = () => {
     }
   };
 
+  const fetchCurrentUserRole = async () => {
+    const token = localStorage.getItem("admin_token");
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-auth`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "verify", token }),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setCurrentUserRole(data.role || "admin");
+      }
+    } catch (error) {
+      console.error("Error fetching current user role:", error);
+    }
+  };
+
   useEffect(() => {
     fetchUsers();
+    fetchCurrentUserRole();
   }, []);
 
   const handleCreate = async (e: React.FormEvent) => {
@@ -85,7 +110,12 @@ const AdminUsers = () => {
     }
   };
 
-  const handleDelete = async (userId: string, username: string) => {
+  const handleDelete = async (userId: string, username: string, role: string) => {
+    if (role === "super_admin") {
+      toast.error("Super Admin account cannot be deleted");
+      return;
+    }
+
     if (!confirm(`Are you sure you want to delete ${username}?`)) return;
 
     const token = localStorage.getItem("admin_token");
@@ -109,6 +139,29 @@ const AdminUsers = () => {
     } catch (error: any) {
       toast.error(error.message);
     }
+  };
+
+  const getRoleBadge = (role: string) => {
+    if (role === "super_admin") {
+      return (
+        <Badge variant="default" className="bg-amber-500 hover:bg-amber-600">
+          <ShieldCheck className="h-3 w-3 mr-1" />
+          Super Admin
+        </Badge>
+      );
+    }
+    return (
+      <Badge variant="secondary">
+        <Shield className="h-3 w-3 mr-1" />
+        Admin
+      </Badge>
+    );
+  };
+
+  const canDelete = (user: AdminUser) => {
+    // Super Admin cannot be deleted by anyone
+    if (user.role === "super_admin") return false;
+    return true;
   };
 
   if (loading) {
@@ -170,19 +223,26 @@ const AdminUsers = () => {
               key={user.id}
               className="flex items-center justify-between p-3 border rounded-lg"
             >
-              <div>
-                <p className="font-medium">{user.username}</p>
-                <p className="text-sm text-muted-foreground">
-                  Created: {new Date(user.created_at).toLocaleDateString()}
-                </p>
+              <div className="flex items-center gap-3">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <p className="font-medium">{user.username}</p>
+                    {getRoleBadge(user.role)}
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Created: {new Date(user.created_at).toLocaleDateString()}
+                  </p>
+                </div>
               </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => handleDelete(user.id, user.username)}
-              >
-                <Trash2 className="h-4 w-4 text-destructive" />
-              </Button>
+              {canDelete(user) && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => handleDelete(user.id, user.username, user.role)}
+                >
+                  <Trash2 className="h-4 w-4 text-destructive" />
+                </Button>
+              )}
             </div>
           ))}
           {users.length === 0 && (
