@@ -114,9 +114,7 @@ const ExportData = () => {
       <Alert variant="default">
         <Info className="h-4 w-4" />
         <AlertTitle>Need Help?</AlertTitle>
-        <AlertDescription className="space-y-2">
-          <p>For support or general questions, please contact <strong>Alvon</strong>, Marketing Manager at Wahi Head Office:</p>
-          For deployment assistance or technical support, please contact <strong>Alvon</strong>, Marketing Manager at Wahi Head Office:
+        <AlertDescription>
           <ul className="mt-2 space-y-1">
             <li>📧 Email: <a href="mailto:marketing@wahigroup.id" className="text-primary underline hover:no-underline">marketing@wahigroup.id</a></li>
             <li>📱 WhatsApp: <a href="https://wa.me/6285190077788" target="_blank" rel="noopener noreferrer" className="text-primary underline hover:no-underline">+62 851 900 777 88</a></li>
