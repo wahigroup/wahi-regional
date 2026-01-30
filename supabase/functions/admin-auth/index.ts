@@ -1,22 +1,22 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { hash, verify } from "https://deno.land/x/scrypt@v4.3.4/mod.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// Simple hash function for passwords
+// Scrypt password hashing - portable across different projects/servers
 async function hashPassword(password: string): Promise<string> {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(password + Deno.env.get("SUPABASE_SERVICE_ROLE_KEY"));
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+  return hash(password);
 }
 
-async function verifyPassword(password: string, hash: string): Promise<boolean> {
-  const passwordHash = await hashPassword(password);
-  return passwordHash === hash;
+async function verifyPassword(password: string, hashStr: string): Promise<boolean> {
+  try {
+    return verify(password, hashStr);
+  } catch {
+    return false;
+  }
 }
 
 // Simple token generation
