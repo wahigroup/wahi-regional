@@ -58,9 +58,9 @@ const ExportData = () => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Export Database</CardTitle>
+          <CardTitle>Export Full Database</CardTitle>
           <CardDescription>
-            Download all database content including site settings and admin users
+            Download complete database for independent deployment outside Lovable
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -87,17 +87,46 @@ const ExportData = () => {
             </Button>
           </div>
 
+          <div className="rounded-lg border p-4 bg-muted/50">
+            <h4 className="font-medium mb-2">Full Database Export Includes:</h4>
+            <ul className="text-sm text-muted-foreground space-y-1">
+              <li>✓ <strong>admin_users</strong> - Admin accounts with bcrypt-hashed passwords</li>
+              <li>✓ <strong>site_settings</strong> - Hero content, default language, SEO settings</li>
+              <li>✓ <strong>contact_settings</strong> - Email, phone, address information</li>
+              <li>✓ <strong>page_sections</strong> - All CMS content (6 languages)</li>
+              <li>✓ <strong>projects</strong> - Property listings with all details</li>
+            </ul>
+          </div>
+
           <p className="text-sm text-muted-foreground">
-            Exports are downloaded as JSON files. Admin passwords are excluded for security.
+            Password hashes use bcrypt encryption (industry standard). Can be imported directly to any Supabase instance.
           </p>
         </CardContent>
       </Card>
 
       <Alert>
         <Info className="h-4 w-4" />
-        <AlertTitle>Website Source Files</AlertTitle>
+        <AlertTitle>Deployment Instructions</AlertTitle>
+        <AlertDescription className="space-y-2">
+          <p>To deploy independently:</p>
+          <ol className="list-decimal list-inside text-sm space-y-1 mt-2">
+            <li>Clone the GitHub repository</li>
+            <li>Create a new Supabase project</li>
+            <li>Run the SQL migrations from <code className="bg-muted px-1 rounded">supabase/migrations/</code></li>
+            <li>Import this JSON export to populate your database</li>
+            <li>Deploy Edge Functions from <code className="bg-muted px-1 rounded">supabase/functions/</code></li>
+            <li>Update <code className="bg-muted px-1 rounded">.env</code> with your Supabase credentials</li>
+            <li>Run <code className="bg-muted px-1 rounded">npm run build</code> and deploy to your server</li>
+          </ol>
+        </AlertDescription>
+      </Alert>
+
+      <Alert variant="default">
+        <Download className="h-4 w-4" />
+        <AlertTitle>Project Images</AlertTitle>
         <AlertDescription>
-          You can download the source code files from the GitHub link provided, or ask Wahi's head office.
+          Project images are stored in Supabase Storage bucket <code className="bg-muted px-1 rounded">project-images</code>. 
+          Download them separately from Cloud View → Storage, or use the image URLs in the export.
         </AlertDescription>
       </Alert>
     </div>

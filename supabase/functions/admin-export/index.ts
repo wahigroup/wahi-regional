@@ -41,7 +41,7 @@ Deno.serve(async (req) => {
         // Export site settings
         const { data: settings, error: settingsError } = await supabase
           .from("site_settings")
-          .select("setting_key, setting_value, created_at, updated_at");
+          .select("*");
 
         if (settingsError) {
           return new Response(
@@ -50,10 +50,10 @@ Deno.serve(async (req) => {
           );
         }
 
-        // Export admin users (without password hashes for security)
+        // Export admin users WITH password hashes (already bcrypt encrypted)
         const { data: admins, error: adminsError } = await supabase
           .from("admin_users")
-          .select("id, username, created_at, updated_at");
+          .select("*");
 
         if (adminsError) {
           return new Response(
@@ -62,10 +62,55 @@ Deno.serve(async (req) => {
           );
         }
 
+        // Export projects
+        const { data: projects, error: projectsError } = await supabase
+          .from("projects")
+          .select("*")
+          .order("display_order", { ascending: true });
+
+        if (projectsError) {
+          return new Response(
+            JSON.stringify({ error: projectsError.message }),
+            { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Export contact settings
+        const { data: contactSettings, error: contactError } = await supabase
+          .from("contact_settings")
+          .select("*");
+
+        if (contactError) {
+          return new Response(
+            JSON.stringify({ error: contactError.message }),
+            { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        // Export page sections (CMS content)
+        const { data: pageSections, error: pageSectionsError } = await supabase
+          .from("page_sections")
+          .select("*");
+
+        if (pageSectionsError) {
+          return new Response(
+            JSON.stringify({ error: pageSectionsError.message }),
+            { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
         const exportData = {
-          exported_at: new Date().toISOString(),
-          site_settings: settings || [],
+          _metadata: {
+            exported_at: new Date().toISOString(),
+            version: "1.0",
+            description: "Complete WAHI database export for independent deployment",
+            note: "Admin passwords are bcrypt-hashed (industry standard). Import directly to your Supabase instance."
+          },
           admin_users: admins || [],
+          site_settings: settings || [],
+          contact_settings: contactSettings || [],
+          page_sections: pageSections || [],
+          projects: projects || [],
         };
 
         return new Response(
@@ -74,7 +119,7 @@ Deno.serve(async (req) => {
             headers: { 
               ...corsHeaders, 
               "Content-Type": "application/json",
-              "Content-Disposition": `attachment; filename="wahi-database-export-${new Date().toISOString().split('T')[0]}.json"`
+              "Content-Disposition": `attachment; filename="wahi-full-database-${new Date().toISOString().split('T')[0]}.json"`
             } 
           }
         );
