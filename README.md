@@ -154,13 +154,18 @@ Deploy the output to your preferred hosting provider (Vercel, Netlify, VPS, etc.
 
 ## Notes
 
-- This project is fully white-label and not tied to any external platform.
-- You are free to deploy it on multiple domains or environments.
-- Database exports allow easy backup, migration, and independent scaling.
+This project is intended solely for use in selling and managing property listings under **WAHI Group**.
+Usage outside of WAHI Group, including resale, sublicensing, or deployment for third-party property businesses, is strictly prohibited.
+
+The application may be deployed across multiple domains or environments **only for WAHI Group–owned or affiliated projects**.
+
+Database export functionality is provided for internal backup, migration, and operational continuity purposes.
 
 ---
 
 ## License
 
-Internal / Private Use  
-© WAHI Group
+Internal / Restricted Use  
+© WAHI Group  
+
+Developed by **Alvon** (Marketing Manager, WAHI Group)
