@@ -3,16 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { toast } from "sonner";
-import { Download, Database, Settings, Info } from "lucide-react";
+import { Download, Database, Info } from "lucide-react";
 
 const ExportData = () => {
   const [exportingDb, setExportingDb] = useState(false);
-  const [exportingSettings, setExportingSettings] = useState(false);
 
-  const handleExport = async (action: "export-database" | "export-settings") => {
-    const isDb = action === "export-database";
-    const setLoading = isDb ? setExportingDb : setExportingSettings;
-    setLoading(true);
+  const handleExport = async () => {
+    setExportingDb(true);
 
     const token = localStorage.getItem("admin_token");
 
@@ -22,7 +19,7 @@ const ExportData = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action, token }),
+          body: JSON.stringify({ action: "export-database", token }),
         }
       );
 
@@ -38,9 +35,7 @@ const ExportData = () => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = isDb 
-        ? `wahi-database-export-${new Date().toISOString().split('T')[0]}.json`
-        : `wahi-settings-${new Date().toISOString().split('T')[0]}.json`;
+      a.download = `wahi-database-export-${new Date().toISOString().split('T')[0]}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -50,7 +45,7 @@ const ExportData = () => {
     } catch (error: any) {
       toast.error(error.message || "Export failed");
     } finally {
-      setLoading(false);
+      setExportingDb(false);
     }
   };
 
@@ -64,39 +59,15 @@ const ExportData = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Button
-              onClick={() => handleExport("export-database")}
-              disabled={exportingDb}
-              className="w-full"
-              size="lg"
-            >
-              <Database className="h-4 w-4 mr-2" />
-              {exportingDb ? "Exporting..." : "Export Full Database"}
-            </Button>
-
-            <Button
-              onClick={() => handleExport("export-settings")}
-              disabled={exportingSettings}
-              variant="outline"
-              className="w-full"
-              size="lg"
-            >
-              <Settings className="h-4 w-4 mr-2" />
-              {exportingSettings ? "Exporting..." : "Export Settings Only"}
-            </Button>
-          </div>
-
-          <div className="rounded-lg border p-4 bg-muted/50">
-            <h4 className="font-medium mb-2">Full Database Export Includes:</h4>
-            <ul className="text-sm text-muted-foreground space-y-1">
-              <li>✓ <strong>admin_users</strong> - Admin accounts with bcrypt-hashed passwords</li>
-              <li>✓ <strong>site_settings</strong> - Hero content, default language, SEO settings</li>
-              <li>✓ <strong>contact_settings</strong> - Email, phone, address information</li>
-              <li>✓ <strong>page_sections</strong> - All CMS content (6 languages)</li>
-              <li>✓ <strong>projects</strong> - Property listings with all details</li>
-            </ul>
-          </div>
+          <Button
+            onClick={handleExport}
+            disabled={exportingDb}
+            className="w-full"
+            size="lg"
+          >
+            <Database className="h-4 w-4 mr-2" />
+            {exportingDb ? "Exporting..." : "Export Full Database"}
+          </Button>
 
           <p className="text-sm text-muted-foreground">
             Password hashes use bcrypt encryption (industry standard). Can be imported directly to any Supabase instance.
@@ -110,7 +81,17 @@ const ExportData = () => {
         <AlertDescription className="space-y-2">
           <p>To deploy independently:</p>
           <ol className="list-decimal list-inside text-sm space-y-1 mt-2">
-            <li>Clone the GitHub repository</li>
+            <li>
+              Clone the GitHub repository:{" "}
+              <a 
+                href="https://github.com/wahigroup/wahi-regional" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary underline hover:no-underline"
+              >
+                github.com/wahigroup/wahi-regional
+              </a>
+            </li>
             <li>Create a new Supabase project</li>
             <li>Run the SQL migrations from <code className="bg-muted px-1 rounded">supabase/migrations/</code></li>
             <li>Import this JSON export to populate your database</li>
@@ -127,6 +108,18 @@ const ExportData = () => {
         <AlertDescription>
           Project images are stored in Supabase Storage bucket <code className="bg-muted px-1 rounded">project-images</code>. 
           Download them separately from Cloud View → Storage, or use the image URLs in the export.
+        </AlertDescription>
+      </Alert>
+
+      <Alert variant="default">
+        <Info className="h-4 w-4" />
+        <AlertTitle>Need Help?</AlertTitle>
+        <AlertDescription>
+          For deployment assistance or technical support, please contact <strong>Alvon</strong>, Marketing Manager at Wahi Head Office:
+          <ul className="mt-2 space-y-1">
+            <li>📧 Email: <a href="mailto:marketing@wahigroup.id" className="text-primary underline hover:no-underline">marketing@wahigroup.id</a></li>
+            <li>📱 WhatsApp: <a href="https://wa.me/6285190077788" target="_blank" rel="noopener noreferrer" className="text-primary underline hover:no-underline">+62 851 900 777 88</a></li>
+          </ul>
         </AlertDescription>
       </Alert>
     </div>
