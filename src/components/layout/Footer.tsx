@@ -4,7 +4,7 @@ import { LanguageSelector } from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // External copyright source - cannot be modified in codebase
-const COPYRIGHT_SOURCE = "https://gist.githubusercontent.com/user/gist_id/raw/copyright.json";
+const COPYRIGHT_SOURCE = "https://gist.githubusercontent.com/wahigroup/ad7a2cc859aa4945de87c0abbcc6adc2/raw/copyright.json";
 
 export function Footer() {
   const { t } = useLanguage();
